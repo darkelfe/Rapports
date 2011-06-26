@@ -1,0 +1,70 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+\usepackage{lmodern}
+\usepackage{graphicx}
+
+\newcommand{\julien}{Julien \bsc{Rosset}}
+\newcommand{\sautligne}{\\ ~}
+
+\title[Réécriture d'un module utilisant un EDI]{Réécriture d'un module utilisant un\\\'Echange de Données Informatisé}
+\author{\julien}
+\date{27 juin 2011}
+\institute{Université Claude Bernard Lyon 1 - IUT A - Département informatique\\Licence professionnelle DASI}
+
+\usetheme{Warsaw}
+
+% Méta-données du PDF
+\hypersetup {
+	pdftitle	=	{Réécriture d'un module utilisant un \'Echange de Données Informatisé},
+	pdfsubject	=	{Soutenance orale d'un projet tuteuré en licence professionnelle DASI},
+	pdfauthor	=	{Julien ROSSET},
+	pdfkeywords	=	{soutenance, DASI, EDI}
+}
+
+\AtBeginSection[] {
+	\begin{frame}<beamer>
+	\frametitle{Plan}
+	\tableofcontents[currentsection, subsectionstyle=shaded/show/hide]
+	\end{frame}
+}
+
+% Pour les numéros de diapositive en bas à droite..
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{
+		\hspace*{-3px}%
+
+		\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=8px]{author in head/foot}%
+		\insertshortauthor
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.45\paperwidth,ht=2.25ex,dp=1ex,left,leftskip=10px]{title in head/foot}%
+		\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.06\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=5px]{title in head/foot}%
+		\insertframenumber{}
+		\end{beamercolorbox}
+	}%
+	\vskip0px%
+}
+
+\begin{document}
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Plan}
+		\tableofcontents[subsectionstyle=hide]
+	\end{frame}
+
+	% Modèle diapo :
+	%\begin{frame}
+	%	\frametitle{#Title}
+	%
+	%	#Content
+	%\end{frame}
+\end{document}

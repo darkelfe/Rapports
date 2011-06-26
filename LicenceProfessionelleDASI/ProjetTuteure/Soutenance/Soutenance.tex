@@ -40,8 +40,8 @@
 
 \AtBeginSection[] {
 	\begin{frame}<beamer>
-	\frametitle{Plan}
-	\tableofcontents[currentsection, subsectionstyle=shaded/show/hide]
+		\frametitle{Plan}
+		\tableofcontents[currentsection, subsectionstyle=shaded/show/hide]
 	\end{frame}
 }
 
@@ -52,13 +52,13 @@
 		\hspace*{-3px}%
 
 		\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=10px]{author in head/foot}%
-		\insertshortauthor
+			\insertshortauthor
 		\end{beamercolorbox}%
 		\begin{beamercolorbox}[wd=.45\paperwidth,ht=2.25ex,dp=1ex,left,leftskip=10px]{title in head/foot}%
-		\insertshorttitle
+			\insertshorttitle
 		\end{beamercolorbox}%
-		\begin{beamercolorbox}[wd=.06\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=11px]{title in head/foot}%
-		\insertframenumber{}
+		\begin{beamercolorbox}[wd=.06\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\insertframenumber{}
 		\end{beamercolorbox}
 	}%
 	\vskip0px%
@@ -82,4 +82,6 @@
 	%\end{frame}
 	
 	\input{Contenu/Presentation.tex}
+	\input{Contenu/DeroulementProjet.tex}
+	%\input{Contenu/Conclusion.tex}
 \end{document}

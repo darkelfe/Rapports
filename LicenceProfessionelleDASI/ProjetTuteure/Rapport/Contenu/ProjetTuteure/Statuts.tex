@@ -1,0 +1,16 @@
+\chapter{Récupération des statuts}
+Ce point clôture mon travail sur le projet tuteuré. Il a démarré très tard, bien après le début de la phase de recette.
+
+~
+
+Comme je l'ai expliqué au début de ce rapport, le traitement des fichiers de BL n'est pas instantané. C'est pourquoi INTTRA a mis en place un système de statuts, qui permet de savoir pour chaque BL s'il est en attente de traitement, s'il a été validé ou s'il a été rejeté. Ces statuts sont au final de simples fichiers qu'INTTRA met à disposition des clients sur leur(s) compte(s) FTP. Ce fichier est écrit dans le même format que les BL (norme IFTMIN). Il reprend plusieurs informations du message BL d'origine, comme son id et son numéro de version. Il dispose d'un champ qui indique si le BL a été transmis à la compagnie maritime ou rejeté à cause d'erreurs. Si aucun fichier n'est présent pour un BL, c'est que celui-ci n'a pas encore été traité.
+
+~
+
+\pireus{} implémentait déjà la fonctionnalité, mais il fallait qu'un utilisateur entre dans le BL au sein d'\integrale et appuie sur le bouton pour mettre à jour le statut du BL actuel. Il a été décidé que pour mon module, cette étape devait être automatisée. J'ai donc dû concevoir un programme indépendant du progiciel et de mon module. Il s'agit d'un programme qui est automatiquement lancé par Windows, toutes les dix minutes par exemple. Il se connecte aux divers comptes FTP du client, paramétrés à l'aide d'un fichier INI, et relève les statuts.
+
+~
+
+La récupération du statut se fait comme suit : dans un premier temps, une fois connecté à un compte FTP, le module parcoure la liste des fichiers présents. Ensuite, pour chaque fichier trouvé, il est téléchargé. Suite à cela, le fichier est ouvert et analysé. Si les données correspondent à un BL envoyé, son statut est mis à jour (dans la table d'audit) puis le fichier est supprimé du FTP.
+
+Et lorsqu'un utilisateur va consulter un BL, le statut est extrait de la base donnée, il est donc automatiquement mis à jour par le programme de récupération des statuts (car la lecture et l'écriture sont faites sur la même table).

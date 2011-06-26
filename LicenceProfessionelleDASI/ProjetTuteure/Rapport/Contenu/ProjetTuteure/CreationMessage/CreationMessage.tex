@@ -1,0 +1,22 @@
+\section{Création du message}
+Suite au test, il reste une chose à faire : l'écriture du fichier de BL. C'est à ce moment-là que je me suis rendu compte, grâce au site officiel d'INTTRA, que les message de BL peuvent désormais (en plus du format EDI) être envoyés au format XML.
+
+Pour en savoir un peu plus, j'ai téléchargé la documentation correspondante. Un exemple à l'intérieur m'a permis de constater qu'en XML le fichier est plus simple à faire, beaucoup plus compréhensible et que les données sont mieux agencées. J'ai donc fait part de cette découverte à mon maître de stage. Malgré les possibilités de ce nouveau format de fichier, M. \bsc{Perisse} l'a jugé trop \og jeune \fg pour qu'on puisse l'utiliser sans risquer de provoquer des problèmes chez nos clients. Je suis donc resté avec l'EDI.
+
+~
+
+Pour la création, j'ai repris la fonction PHP que j'avais identifiée au début du projet : celle qui écrit le message. Et avec l'aide de la documentation d'INTTRA, je me suis lancé.
+
+~
+
+Quelques difficultés mineures sont venues perturber ce travail. L'une d'entre elle est liée aux caractères qui sont autorisés dans les segments. Par exemple, les accents ne sont pas gérés par l'EDI, il m'a donc fallu créer une fonction qui convertit le texte des utilisateurs en remplaçant chaque accent par son caractère d'origine.
+
+De plus, il existe certains caractères réservés comme les deux points, le signe plus mais aussi le point d'interrogation (ils servent de séparateurs de champs dans les segments). Pour pouvoir les placer dans le fichier de BL, ils doivent être précédés d'un point d'interrogation. Par exemple, \og ? \fg{} devient \og ?? \fg.
+
+~
+
+Les deux seuls problèmes gênants auxquels j'ai été exposé sont :
+\begin{itemize}
+	\item les poids des marchandises ;
+	\item le numéro de version du message.
+\end{itemize}

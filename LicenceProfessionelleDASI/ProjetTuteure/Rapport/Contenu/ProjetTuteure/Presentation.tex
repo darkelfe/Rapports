@@ -1,0 +1,84 @@
+\chapter{Présentation}
+\section{Cadre}
+\subsection{Le document}
+Comme je l'ai expliqué plus haut dans ce document, les entreprises qui organisent le transport international doivent envoyer de nombreux documents à différentes entités. Nous pouvons citer, par exemple, le document envoyé à la douane et qui détaille les marchandises transportées, celui qui permet de réserver une place à bord d'un transport (avion, bateau, ...) pour les marchandises souhaitées, etc.
+
+~
+
+Dans le cadre du transport international \textbf{maritime}, il existe un document nommé \emph{Boat Landing} (généralement abrégé en \og BL \fg) qui doit être transmis à la compagnie maritime en charge du transport. Ce document renseigne sur les marchandises transportées ainsi que leur répartition dans les différents conteneurs\footnote{Conteneur : il s'agit ici de conteneurs maritimes, aussi appelés \emph{containers}, c'est-à-dire des caissons métalliques destinés au transport de marchandises sur les bateaux. Il en existe de différentes tailles, généralement exprimées en pieds.}. Il permet également de transmettre des informations relatives aux poids et volumes respectifs des conteneurs. Des données se rapportant au client final et aux différents acteurs du transport (banque, destinataire, etc.) y sont également inclus.
+
+
+\subsection{INTTRA}
+Afin de limiter la prolifération de formats différents pour ce document (ainsi que d'autres, non traités dans ce rapport), un grand nombre de compagnies maritimes du monde entier se sont regroupées pour créer une association basée au Danemark : \emph{INTTRA}. Cette dernière a pour principal objectif la standardisation du format des documents qui doivent être transmis aux compagnies maritimes.
+
+~
+
+De nos jours, son rôle va bien plus loin : tout document devant être transmis à une compagnie maritime a pour \textbf{obligation} de passer par INTTRA, qui vérifie alors la validité du document. S'il est correct, il est retransmis à la compagnie maritime ; sinon, un e-mail est envoyé au client à l'origine du message pour lui indiquer les informations manquantes ou les divers problèmes.
+
+~
+
+\'Etant donné qu'un très grand nombre de documents doit transiter par les serveurs d'INTTRA, le traitement des fichiers n'est pas instantané. C'est pourquoi un système de \og statuts \fg {} a été développé. Il s'agit d'une feuille, dont le contenu est lui aussi normalisé, mise à disposition du client et indiquant le statut du document :
+\begin{itemize}
+	\item \textbf{En attente} : le document n'a pas encore été traité ;
+	\item \textbf{Accepté} : le document est valide et a été transmis à la compagnie maritime ;
+	\item \textbf{Refusé} : le document reçu contenait des erreurs, il faut se référer au mail correspondant pour obtenir les détails.
+\end{itemize}
+
+
+\subsection{Contenu}
+Un fichier-exemple de BL est disponible dans l'annexe \ref{ex_bl}, page \pageref{ex_bl}.
+
+~
+
+Les BL sont en théorie constitués d'une unique ligne, mais l'exemple a été découpé par segments pour simplifier sa visualisation. Un segment est un fragment de fichier de BL véhiculant des informations précises. Au sein du document, ils sont séparés par une apostrophe (visible à chaque fin de ligne dans l'exemple).
+\vfill
+
+
+\section{Mise en \oe{uvre} par \solulog}
+Les BL sont rédigés à l'aide d'un EDI\footnote{EDI : \emph{Electronic Data Interchange}, ou \emph{\'Echange de données informatisé}, désigne une \og norme \fg{}sur le contenu et le classement des données dans d'un fichier.} nommé \og IFTMIN \fg. Tout comme un grand nombre d'EDI, il est absolument inintelligible pour un être humain. Puisque seul un ordinateur était capable de l'écrire en un temps raisonnable, \solulog{} a créé un nouveau  module qui serait chargé de le faire puis d'envoyer le document à INTTRA.
+
+~
+
+Alexandre a été chargé du développement du module. \'Etant plus à l'aise avec le PHP qu'avec le Visual Basic, et le module final devant être plus tard vendu à d'autres entreprises, il a décidé de créer un module indépendant qui fonctionnerait comme un web service (utilisation de SOAP).
+
+
+\subsection{Processus interne}
+Tout web service a besoin d'un client pour être exploité. Dans le cas présent, il s'agit de \integrale, le travail commence donc par là. Les données recueillies auprès de l'utilisateur subissent quelques tests. L'absence de certains champs vides est notamment testée, puis les données sont placées dans des variables créées par le web service via une DLL\footnote{DLL : \emph{Dynamic Link Library}, fichier Microsoft Windows contenant des types de données et/ou des fonctionnalités communes à plusieurs applications.}. Ces variables sont alors transmises au web service : \pireus.
+
+~
+
+Après réception des données, \pireus {} commence à faire l'ensemble des tests nécessaires à l'écriture d'un fichier correct. Les données pouvant, en théorie, venir d'ailleurs que de \integrale, les tests sur celles-ci sont également réalisés à nouveau. Une fois les tests terminés et validés, les données sont transformées (les raisons de cette étape seront détaillées en page \pageref{transformation_donnees}, à la section \ref{transformation_donnees}). La rédaction du document peut alors commencer.
+
+Pour finir, le document est transmis à INTTRA via un service FTP\footnote{FTP : \emph{File Transfert Protcol}, un protocole Internet pour l'échange de fichiers.}.
+	
+	
+\section{Objectifs du projet}
+\subsection{Problématique}
+A mon arrivé à \solulog, le module \pireus~est complet et parfaitement fonctionnel depuis presque cinq ans. Mais il se pose un problème de taille : tant qu'Alexandre était présent au sein de l'entreprise, il pouvait maintenir et faire évoluer le module. Mais depuis sa démission, \solulog{} a perdu la seule personne qui soit capable d'en comprendre le langage. Malheureusement, bien qu'il soit très bien commenté, cela ne suffit pas à contre-balancer la complexité du PHP pour un novice. Par conséquent, l'évolution du module est bloquée.
+
+~
+
+Même si un module fonctionne parfaitement depuis longtemps, il peut arriver qu'il se produise un problème, insoluble sans de solides connaissances du langage. Une fois le problème survenu, il existe peu de solutions. Soit \solulog{} recrute un expert en PHP pour s'occuper du module, soit il faut réécrire le module dans un autre langage.
+
+La première solution pose plusieurs problèmes : un expert en PHP n'est pas forcément formé à des développements dans d'autres langages, ce qui signifierait l'engager pour s'occuper seulement de \pireus. À moins d'avoir des changements radicaux à apporter au module, ce serait sans doute une perte de temps. De plus, la problématique liée au départ d'Alexandre risque fortement de se poser à nouveau lorsque l'expert partira à son tour.
+
+Cependant, la seconde solution n'est pas parfaite non plus : réécrire un module complet, surtout aussi poussé que l'est \pireus{}, implique au préalable une période d'étude du projet. Il s'agit de temps et d'argent qui pourraient être employée dans d'autres projets.
+
+~
+
+Mon supérieur a finalement opté pour la deuxième méthode. Cela a par ailleurs permis de régler un autre problème, inhérent à l'utilisation d'un web service : il est difficile de déterminer si l'erreur provient du client ou du web service lui-même. De plus, malgré ce qui avait été prévu au départ, le module n'a jamais été commercialisé. Cela justifie un peu plus l'emploi de cette solution.
+
+~
+
+Il ne restait plus à résoudre que la question du PHP : d'accord pour réécrire le module, mais dans quel langage ? M. \bsc{Perisse} a choisi le plus simple : le \vb.
+\vfill
+
+
+\subsection{Le projet tuteuré}
+C'est à ce moment-là que j'interviens. Le \vb{} étant le premier langage que j'ai appris, je l'ai beaucoup pratiqué. Même si ces connaissances avaient commencé à se dissiper ces derniers temps, je m'en souviens encore et cela revient vite. En outre, j'ai des connaissances basiques en PHP pour m'aider à plonger au c\oe{ur} de \pireus.
+
+Mes connaissances en \vb{} me seront également utiles pour résoudre le problème de \og main d'\oe{vre} \fg. Mais engager du personnel a un coup non négligeable pour l'entreprise. Au final, ce sont trois alternants qui sont recrutés : moi-même pour le développement, et deux commerciales pour aider les finances de \solulog.
+
+~
+
+Pour finir, voici en résumé mon projet tuteuré : transformer un module PHP écrivant des fichiers à l'aide un EDI, en une extension codée en \vb{} du progiciel \integrale{}.

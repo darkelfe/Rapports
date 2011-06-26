@@ -1,0 +1,80 @@
+\section{Transformation des données}
+\label{transformation_donnees}
+
+Après l'avoir mentionnée plusieurs fois, il temps de parler de la mystérieuse transformation de données qui s'opère dans \pireus.
+
+
+\subsection{Un problème bien ennuyeux}
+Parmi les segments que j'avais mis de côté faute de comprendre leur utilité sur le moment, il y en a un que j'ai eu vraiment beaucoup de mal à identifier : \og MEA+AAE+WT \fg. J'ai tenté à plusieurs reprises de comprendre son origine dans le code PHP, mais en vain. Même la documentation, pourtant d'une taille conséquente, n'a pu m'éclairer que sur une seule chose : qu'il s'agissait de deux poids\footnote{Le segment est présent à deux reprises pour chaque marchandise dans le document, avec un signification différente ; d'où les \emph{deux} poids.}. Or, je disposais déjà d'un segment donnant le poids total pour l'ensemble du colisage et un autre pour le poids individuel de chaque conteneur.
+
+Alors, de quels poids pouvait-il bien s'agir ?
+
+~
+
+Pour comprendre, j'ai dû plonger plus profondément dans le code PHP. Grâce au travail que j'avais mené dessus, j'avais une idée plus claire de son fonctionnement. Je suis donc de nouveau parti de la fin (la création du message) pour remonter à l'origine du problème. Mais, comme la première fois, je me suis retrouvé bloqué par une transformation des données reçues qui ne semblait avoir aucun sens.
+
+Pourtant, le reste de \pireus{} ne contient pas de code inutile. Pendant un temps, j'ai étudié l'idée qu'il s'agissait peut-être d'un morceau du code oublié qui ne sert plus. Pourtant, vu ses dimensions, difficile de ne pas le remarquer. J'ai donc pris pour hypothèse qu'il s'agissait de quelque chose d'utile, et j'ai commencé à étudier cette transformation.
+
+~
+
+Afin d'éviter d'être perturbé par le reste, j'ai isolé cette portion du code dans un fichier à part. Malgré cela, il restait difficile d'en comprendre l'utilité. Néanmoins, j'ai fini par établir que le code transformait (sans en comprendre la raison) non pas les données elles-mêmes, mais la manière dont elles sont rangées dans leur structure PHP !
+
+Plus j'étudiais ce code, moins il semblait avoir de sens.
+
+~
+
+J'ai tenté de clarifier ce qu'il se passait. J'ai commencé par faire un diagramme représentant la structure des données en entrée de ce code. Ensuite, j'ai suivi les instructions une à une et indiqué ce que devenaient les données.
+
+~
+
+Au début, ça été assez simple. Les données était simplement recopiées vers une nouvelle structure. D'ailleurs, les différences de stockage pour cette première partie était nulles.
+
+Tout s'est compliqué quand j'en suis arrivé au colisage. Jusqu'à présent, les marchandises et conteneurs était organisés de la manière la plus logique qui soit, c'est-à-dire avec les marchandises à l'intérieur des conteneurs. Mais dans ce code, l'ordre s'échangeait : au lieu d'être rangé par conteneur, le colisage était désormais classé par marchandise, chacune d'entre elles comportant la liste des conteneurs dans lesquelles elle était présente.
+
+~
+
+C'est une chose que j'ai eu du mal à comprendre sur le moment : pourquoi répartir une marchandise sur plusieurs conteneurs différents (il est rare qu'une seule marchandise occupe un conteneur complet) ? Mais, admettons que cela soit utile dans certains cas (par exemple si un seul BL correspond à l'envoi de la marchandise de plusieurs clients, chacun ayant son propre conteneur).
+
+~
+
+Au milieu de ce changement de structure, le code calculait en même temps deux variables.
+
+La première, très simple à calculer et à comprendre, est le poids de la marchandise actuelle dans chaque conteneur. Par exemple, le premier conteneur contient cinq kilogrammes de chaussures, et le quatrième en contient trois et demi.
+
+J'ai dû réfléchir un long moment sur la deuxième variable, mais j'ai fini par découvrir la vérité : il s'agit du \emph{poids total de la marchandise actuelle, tous conteneurs confondus}. Dans le cas précédent, cela donne : $$ 5 + 3.5 = 8.5~Kg $$
+
+~
+
+Au final, un fichier de BL contient quatre types de poids :
+\begin{enumerate}
+	\item Le poids total du colisage (somme des poids des conteneurs) ;
+	\item Le poids de chaque conteneur ;
+	\item Le poids total de la marchandise actuelle ;
+	\item Le poids de la marchandise actuelle par conteneur.
+\end{enumerate}
+
+~
+
+La question qui m'est alors venue est la suivante : \og Est-il nécessaire de changer la structure pour calculer les poids relatifs aux marchandises ? \fg.
+
+
+\subsection{Le calcul des poids}
+D'un point de vue purement algorithmique, non, il n'est pas \emph{nécessaire} de changer la structure pour cela. Mais ne pas le faire complique les choses. Il faudrait faire plein de boucles imbriquées.
+
+~
+
+Les deux premières doivent permettre de parcourir l'ensemble des marchandises de chaque conteneur. Mais il faut également sauter les marchandises ayant déjà été traitées. Cela peut être fait en utilisant un tableau pour stoker les marchandises traitées, mais ce n'est pas économique en place (il faut stocker un copie de chaque marchandise), pas plus qu'en temps : pour chaque marchandise il faut faire une autre boucle imbriquée qui parcourt ce tableau des marchandises traitées et se compare avec chacune d'elles.
+
+Ensuite, toujours dans ceux boucles imbriquées, il faut à nouveau parcourir les conteneurs et leurs marchandises pour calculer le poids total de la marchandise (avec une comparaison pour chaque marchandise).
+
+~
+
+Avec ces quatre boucles imbriquées et ces nombreux tests comparant des marchandises (une chose assez longue), procéder comme cela serait un gouffre à temps et à ressources.
+
+Il est donc fortement conseillé d'utiliser la seconde méthode de stockage. Mais au lieu de faire une transformation au sein du module, ne serait-il pas plus judicieux de l'employer dès le départ ?
+
+~
+
+En y réfléchissant un peu, on se rend compte qu'on finit par retomber sur le même problème, mais pour le poids par conteneur et le poids total du colisage (quoique le calcul soit moins gourmand dans ce cas).
+
+Au final, la seule solution possible est de procéder comme Alexandre : en changeant la structure pendant le processus. Il s'agit d'une solution qui demande beaucoup de place en mémoire, mais qui a l'avantage d'être assez rapide, contrairement aux deux autres.

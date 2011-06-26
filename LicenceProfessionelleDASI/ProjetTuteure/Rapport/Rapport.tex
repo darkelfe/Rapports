@@ -1,0 +1,103 @@
+\documentclass[10pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+\usepackage{lmodern}
+
+\usepackage[top=2cm,bottom=1.25cm,right=.75cm,left=2cm]{geometry}
+
+\usepackage{color}
+\usepackage{listings}
+\lstset{ %
+	language=HTML,					% choose the language of the code
+	basicstyle=\footnotesize,		% the size of the fonts that are used for the code
+	numbers=left,					% where to put the line-numbers
+	numberstyle=\footnotesize,		% the size of the fonts that are used for the line-numbers
+	stepnumber=1,					% the step between two line-numbers. If it's 1 each line will be numbered
+	numbersep=5pt,					% how far the line-numbers are from the code
+	backgroundcolor=\color{white},	% choose the background color. You must add \usepackage{color}
+	showspaces=false,				% show spaces adding particular underscores
+	showstringspaces=false,			% underline spaces within strings
+	showtabs=false,					% show tabs within strings adding particular underscores
+	frame=single,					% adds a frame around the code
+	tabsize=4,						% sets default tabsize to 2 spaces
+	captionpos=b,					% sets the caption-position to bottom
+	breaklines=true,				% sets automatic line breaking
+	breakatwhitespace=false,		% sets if automatic breaks should only happen at whitespace
+	title=\lstname,					% show the filename of files included with \lstinputlisting
+	escapeinside={\%*}{*)},			% if you want to add a comment within your code
+	morekeywords={*,...}			% if you want to add more keywords to the set
+}
+
+\usepackage{hyperref}
+
+\title{Projet tuteuré en licence professionnelle\\Compte-rendu technique de réalisation}
+\author{Julien \bsc{Rosset}}
+\date{\today}
+\hypersetup {
+	pdftitle	=	{Réécriture d'un module utilisant un Échange de Données Informatisé - Licence Professionnelle DASI en alternance},
+	pdfauthor	=	{Julien ROSSET},
+	pdfsubject	=	{Compte-rendu de projet tuteuré en licence professionnelle DASI en alternance},
+	pdfkeywords	=	{Compte-rendu, projet tuteuré, licence professionnelle},
+	pdflang		=	fr_FR,
+	pdfborder	=	0 0 0,
+	frenchlinks	=	true
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancypagestyle{plain}{%
+\fancyhf{}
+\fancyhead[L]{Julien \bsc{Rosset}}
+\fancyhead[R]{\today}
+\fancyfoot[L]{Université Claude Bernard Lyon 1 - IUT A - Département Informatique - LP DASI A}
+\fancyfoot[R]{\thepage}
+\setlength{\headsep}{10pt}
+\renewcommand{\headrulewidth}{1px}
+\renewcommand{\footrulewidth}{1px}}
+
+\fancyhf{}
+\fancyhead[L]{Julien \bsc{Rosset}}
+\fancyhead[R]{\today}
+\fancyfoot[L]{Université Claude Bernard Lyon 1 - IUT A - Département Informatique - LP DASI A}
+\fancyfoot[R]{\thepage}
+\setlength{\headsep}{10pt}
+\renewcommand{\headrulewidth}{1px}
+\renewcommand{\footrulewidth}{1px}
+
+% Pour la page de garde
+\usepackage{color}
+\usepackage{changepage}
+\usepackage{graphicx}
+
+% Commandes personalisés
+\newcommand{\solulog}{\bsc{Solulog}}
+\newcommand{\fidit}{\bsc{Fidit}}
+\newcommand{\integrale}{\og Intégrale \fg}
+\newcommand{\pireus}{\bsc{Pireus}}
+\newcommand{\vb}{Visual Basic}
+
+\begin{document}
+	%\maketitle
+	\input{Contenu/TitlePage.tex}
+
+	\input{Contenu/Remerciements.tex}
+
+	\renewcommand{\contentsname}{Sommaire}
+	%\setcounter{tocdepth}{4}
+	\tableofcontents
+
+	\input{Contenu/Introduction.tex}
+
+	\input{Contenu/Presentation.tex}
+	\input{Contenu/ProjetTuteure.tex}
+	\input{Contenu/Bilans.tex}
+
+	\input{Contenu/Conclusion.tex}
+
+	\appendix
+	\input{Contenu/Annexes.tex}
+\end{document}

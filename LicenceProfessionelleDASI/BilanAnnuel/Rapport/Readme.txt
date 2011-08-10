@@ -1,0 +1,1 @@
+﻿Concerne le rapport écrit du bilan annuel fait lors de ma licence professionnelle (Développement et Administration de Systèmes d'Information) chez Solulog / Fidit.

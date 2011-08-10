@@ -1,0 +1,64 @@
+\chapter{\'Etude de l'existant}
+
+\section{Code PHP du module}
+La première chose à faire est de comprendre réellement ce que je suis censé faire et, plus important encore, comprendre la finalité du module. La transformation d'un web service en un module autonome ne peut pas être menée simplement en \og recopiant \fg{} le code.
+
+~
+
+Ma première tâche a donc été de récupérer et d'étudier le code PHP de \pireus. Je me suis ainsi lancé dans l'étude de la vingtaine de fichiers constituant le module. Avec l'aide de mon maître d'apprentissage et de Samuel, j'ai rapidement saisi l'objectif du module. Une chose s'est alors rapidement imposée à moi : mon travail serait beaucoup plus facile si je comprenais comment créer un fichier de BL de toute pièce.
+
+~
+
+Bien évidemment, résoudre ce casse-tête n'a pas été si simple. Le premier problème que j'ai rencontré concerne SOAP. Lorsque j'ai commencé à étudier le code, les cours d'architecture n-tier n'avaient pas encore débuté. Par conséquent, je ne savais pas du tout ce que pouvait être un \og web service \fg{}, et encore moins SOAP. Je me suis donc efforcé de faire abstraction de ce qui en faisait partie.
+
+~
+
+Samuel m'a ensuite appris qu'Alexandre n'avait pas seulement écrit le module pour des documents de type BL, mais qu'il l'avait rendu entièrement générique. Il est très confortable de pouvoir employer un même algorithme central, quelque soit le type de document, cependant cela ne simplifie guère le code. Par exemple, de nombreux tests supplémentaires ont fait leur apparition.
+
+Ceci cumulé à l'utilisation de SOAP, j'ai eu énormément de difficultés à faire le tri entre ce qui était utile et ce qui n'avait aucune importance pour moi. En effet, la question de la généricité n'avait plus lieu d'être dans le cadre de \integrale puisque les autres types de fichiers disposaient de leurs propres modules.
+
+~
+
+L'un des grands avantages de \pireus{} est son code commenté. Alexandre a visiblement fait des efforts pour aider les nouveaux lecteurs, mais une partie des commentaires est néanmoins consacrée à SOAP. Pour une personne n'en connaissant rien, il est difficile de se faire une idée du sujet qui est réellement traité.
+
+~
+
+En contrepartie, la documentation du module est négligeable. Elle est certainement importante lorsque l'on souhaite installer \pireus{} et recréer son environnement, mais elle ne fournit aucune information sur sa structure interne. De plus, comme il s'agit d'un web service, il n'y a pas de point d'entrée, de fonction disant : \og le code commence \emph{ici} ! \fg.
+
+La norme IFTMIN dispose elle aussi d'une documentation rédigée par INTTRA, mais elle est centrée sur les segments pouvant apparaître dans le fichier. Les tests relatifs aux données sont seulement suggérés au cas par cas, en fonction du segment qui est en train d'être expliqué.
+
+~
+
+Les moyens cités ci-dessus ne m'ayant pas permis de saisir ce que j'avais besoin de comprendre, j'ai dû me tourner vers une autre solution.
+
+~
+
+Avec du recul, après avoir recréé le module et pleinement pris conscience de la complexité d'un BL, je suis soulagé de ne pas avoir eu à faire la partie d'étude. Relire et comprendre le module \pireus{} me semble d'une facilité enfantine à côté du travail colossal qu'Alexandre a dû fournir pour identifier les segments utiles, ainsi que les tests associés.
+
+
+\section{Exemple d'un fichier de BL}
+Ne réussissant pas à comprendre le fonctionnement d'un BL à partir du code, j'ai décidé d'utiliser la rétro-ingénierie. J'ai obtenu, via une exécution de \pireus{}, le fichier généré au final. C'est grâce à cela et aux données demandés à l'utilisateur pour ce message que j'ai pu identifier la majeure partie des constituants du fichier. Mais même de cette manière, j'ai eu du mal à faire les identifications.
+
+~
+
+C'est à partir de ce moment-là qu'a commencé un long travail : identifier quelles informations étaient stockées à quel endroit. Certains champs du formulaire \vb{} ont été assez simples à repérer, comme l'adresse du client ou le numéro de téléphone de la personne à l'origine du message.
+
+Après cette première identification, j'ai poursuivi en essayant de repérer les données qui semblaient avoir un sens. Avec l'aide de Samuel et de la documentation fournie par INTTRA, j'ai pu identifier leur origine et ainsi reconnaître de nouveaux champs.
+
+~
+
+Malgré ce second passage, il restait encore des données à identifier. Mais la question était de savoir comment faire. J'ai finalement décider de me replonger dans le code PHP. Contrairement à la première fois, je cherchais quelque chose de précis : la fonction chargée d'écrire le message de BL à partir des données. Cela a donc été un peu plus facile et j'ai enfin pu la trouver.
+
+~
+
+En faisant le parallèle entre les segments écrits par le code PHP et ceux que je ne n'avais pas encore reconnus, j'ai identifié les variables permettant de construire ces derniers. J'ai ensuite pensé qu'en parcourant le code PHP en sens inverse, je serais en mesure de trouver à quoi correspondait le contenu de chaque variable. Mais c'était sans compter sur la fonction transformant les données - un point que je vais traiter plus loin dans le rapport. A cause de ce morceau de code que je ne comprenais pas encore, je ne suis parvenu à identifier aucune variable de cette manière.
+
+~
+
+La dernière chose qui m'ait guidé, c'est qu'\emph{a priori}, toutes les variables que l'utilisateur peut saisir dans son interface doivent être présentes dans le fichier de sortie. Cela ne c'est pas révélé totalement exact (un des champs contenait une valeur \og inutile \fg), mais m'a permis de vérifier l'origine de plusieurs champs et d'en identifier d'autres.
+
+~
+
+En l'absence de nouvelle solution pour identifier les champs restants, j'ai alors considéré les choses comme suit : les données non identifiées restantes constituaient une minorité ; au fur et à mesure que je recréerais les fonctions dans mon module, je ferais le parallèle avec le code de \pireus. Une fois arrivé à la fonction de création du message, j'aurais normalement identifié la totalité des variables.
+
+Malgré le raccourci final, l'étude du message m'a occupé une semaine complète.

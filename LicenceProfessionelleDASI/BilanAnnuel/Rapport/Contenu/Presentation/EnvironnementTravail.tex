@@ -1,0 +1,20 @@
+\chapter{Environnement de travail}
+L'ensemble des données de \integrale{} est stocké dans une base de données Microsoft SQL Server (soit 2005, soit 2008). Le logiciel lui-même doit être installé sur un serveur du client.
+
+~
+
+Dans le cadre de son développement, le code source est enregistré sur un serveur distant de \solulog{} et hébergé par \fidit. Celui-ci utilise le système d'exploitation Microsoft Windows Server 2003.
+
+~
+
+La modification du code source ou la réalisation de tests se fait donc directement sur le serveur en question. Chaque employé de \solulog{} dispose de sa propre session. L'accès se fait par TSE\footnote{TSE : Terminal Server Edition, un composant de Microsoft Windows (\og Connexion Bureau à distance \fg).}. De cette manière, toutes les données sont centralisées et sauvegardées quotidiennement.
+
+~
+
+Le programme \integrale{} est développé dans Microsoft Access 2003 (mais fonctionne également avec les versions 2007 et 2010) avec le langage \vb.
+
+~
+
+Access possède lui-même une base de données interne, mais la taille de celle de \integrale{} a obligé \solulog{} à les externaliser vers une base de données spécialisée (ici, Microsoft SQL Server).
+
+Au final, Access ne sert donc que pour les parties interface et fonctionnelle du programme.

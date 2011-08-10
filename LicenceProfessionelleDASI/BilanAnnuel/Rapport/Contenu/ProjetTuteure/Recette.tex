@@ -1,0 +1,68 @@
+\chapter{Recette}
+Une fois mon module terminé et testé, il ne restait plus qu'à le mettre progressivement en place chez les clients.
+
+~
+
+La phase de recette ne devait pas commencer avant le mois de février, mais un problème a précipité sa mise en place.
+
+
+\section{Les joies de Noël}
+Tout commence le jeudi 17 décembre 2010. Il est bientôt 17 H et je suis en train de travailler sur l'étude UML d'un module de gestion commerciale, lorsque le téléphone sonne. C'est un client qui nous appelle car il n'arrive pas à envoyer son BL à INTTRA, à cause d'une erreur.
+
+~
+
+Malgré ses nombreuses années de service, le module \pireus{} n'est pas parfait. Il reste encore des problèmes qui apparaissent de temps à autre en fonction des clients. Donc rien de nouveau de ce côté-là.
+
+Pourtant, l'erreur affichée est loin d'être banale : \og L'index n'appartient pas à la sélection \fg. Après quelque tâtonnements, nous finissons par découvrir que le client chercher à envoyer plus de containers qu'il n'est possible avec \pireus{} - et, \emph{a priori}, même avec n'importe quel BL d'une manière générale.
+
+~
+
+Pour bien percevoir le côté totalement \og innovant \fg{} de ce problème, je dois à nouveau vous parler des conteneurs et de leurs marchandises.
+
+Même si en théorie un BL peut convenir à une infinité de conteneurs renfermant chacun une possible infinité de marchandises, en réalité ce n'est pas le cas. Il existe des limites qui ne peuvent pas être dépassées. Celles-ci sont fixées à cent conteneurs de trente marchandises chacun. En pratique, un client n'a jamais plus de trois ou quatre conteneurs en même temps, chacun d'eux ne dépassant pas cinq marchandises. Ces deux limites sont présentes dans \pireus, un fois encore pour empêcher l'envoi d'un document invalide.
+
+Or, nous avons là un client qui a dépassé la limite du nombre de conteneurs.
+
+~
+
+Après discussion, nous apprenons que notre client est dans une situation encore jamais vue : il doit envoyer \emph{trente-quatre} conteneurs sur un même bateau (c'est-à-dire avec le même document). Malgré ce chiffre difficilement croyable, le problème ne devrait en théorie pas se poser puisque la limite des conteneurs est de cent. De plus, le nombre de conteneurs passe avec succès le test concernant la limite maximale.
+
+~
+
+Après quelques recherches dans les fichiers PHP, j'ai fini par repérer le problème. Lors du remplissage des valeurs en \vb{} dans les tableaux (avant l'envoi à \pireus), les indices des marchandises et des conteneurs étaient inversé ! Mais si le module fonctionnait pour le reste, cela voulait dire que l'indice était également inversé sur \pireus. Donc, impossible de faire le changement dans l'instant.
+
+A la vue de l'heure, mon maître d'apprentissage a ordonné une réunion d'urgence pour le vendredi matin.
+
+~
+
+Au final nous avons réussi à résoudre le problème avant le départ du bateau. Une inversion des indices en \vb{} et quelques modifications du côté PHP et tout a fonctionné. Heureusement pour nous, le problème s'est facilement réglé, mais que se passera-t-il la prochaine fois que le problème touchera le c\oe{ur} de \pireus{} et ne sera pas  modifiable aussi facilement (que ce soit à cause de la complexité du langage ou de son déploiement chez les clients) ?
+
+~
+
+C'est donc cette situation de crise qui a poussé mon supérieur à lancer la recette de mon module avant l'heure, pour qu'il puisse être opérationnel en cas de besoin.
+
+
+\section{Le système de choix}
+Préférant être prudente, \solulog{} a préféré, dans un premier temps, mettre en place mon module en parallèle avec \pireus{} au lieu de le remplacer directement. La notion de parallélisme implique évidemment qu'il est possible de passer d'une méthode à l'autre sans trop de difficultés.
+
+Une chose que j'ai apprise cette année, c'est que les clients sont toujours très inquiets lorsque l'interface d'un programme change ou semble changer. Afin de limiter les remous, nous avons dû développer une méthode simple de changement, qui n'altère pas beaucoup l'interface.
+
+~
+
+De plus, nous avons décidé que le changement devait être réglable au niveau de l'utilisateur et pas au niveau du programme. En effet, si un problème survient et qu'il faut changer de méthode, un problème lié à un seul utilisateur aurait imposé le redémarrage complet du programme. Si le changement est seulement restreint à l'utilisateur, alors c'est beaucoup plus simple pour tout le monde.
+
+~
+
+La solution la plus simple aurait été de placer un bouton ou une case à cocher directement dans le formulaire de saisie des données du BL. Mais il s'agit d'une interface régulièrement utilisée, et le changement aurait été trop visible. De plus, mon module a pour objectif de ne modifier que l'\emph{implémentation} du module, pas son interface (exception faite pour les messages d'erreurs). Il faut donc garder ce changement le plus invisible possible.
+
+~
+
+Finalement nous avons choisi de placer ce choix dans le paramétrage de l'utilisateur. Cette partie du programme étant rarement visitée une fois les réglages faits, il est peu probable que beaucoup de monde remarque ou même s'inquiète de la présence d'un nouveau réglage. De plus, il offre toute l'accessibilité aux autres paramètres de \integrale.
+
+
+\section{Retours des clients}
+Pour le moment, le module n'est déployé que chez deux clients, mais aucun n'a semblé remarquer le changement de l'implémentation. Quelques problèmes sont apparus, c'était inévitable, mais beaucoup moins que ce à quoi je m'attendais.
+
+~
+
+Le module semblant bien fonctionner en situation réelle, il est prévu qu'il soit déployé, toujours en parallèle avec \pireus{}, d'ici peu. Au final, le module PHP disparaîtra pour ne laisser que le résultat de mon projet tuteuré.

@@ -1,4 +1,5 @@
 \chapter{Environnement de travail}
+\section{\solulog}
 L'ensemble des données de \integrale{} est stocké dans une base de données Microsoft SQL Server (soit 2005, soit 2008). Le logiciel lui-même doit être installé sur un serveur du client.
 
 ~
@@ -18,3 +19,12 @@ Le programme \integrale{} est développé dans Microsoft Access 2003 (mais fonct
 Access possède lui-même une base de données interne, mais la taille de celle de \integrale{} a obligé \solulog{} à les externaliser vers une base de données spécialisée (ici, Microsoft SQL Server).
 
 Au final, Access ne sert donc que pour les parties interface et fonctionnelle du programme.
+
+\section{\fidit}
+Chez \fidit, le travail est réparti entre deux serveurs. Le premier permet le développement proprement dit des sites web. Il est configuré de manière à simplifier le travail du développeur. Le second serveur est là pour la version \og finale \fg{} des sites web, ceux qui seront utilisés par les internautes.
+
+Dans un soucis de simplicité, ces deux serveurs sont presque identiques. Tout les deux sont gérés avec Linux\footnote{Comme \bsc{Windows}, \bsc{Linux} est un système d'exploitation.}. Les employés travaillent donc directement sûr le contenu des serveurs. Ceci est rendu possible par l'utilisation d'un connexion dite SSH\footnote{SSH : Secure SHell, une interface d'échanges distant, disponible uniquement en mode texte.}.
+
+~
+
+L'édition de fichiers constituant les sites web est faite par le biais de l'éditeur VIM. Il est également possible d'importer des fichiers (comme les images) par le biais d'une connexion FTP\footnote{FTP : File Transfert Protocol, une méthode permettant le transfert de fichiers entre deux entités distantes.}.

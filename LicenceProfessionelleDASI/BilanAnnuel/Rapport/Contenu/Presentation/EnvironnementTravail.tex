@@ -8,7 +8,7 @@ Dans le cadre de son développement, le code source est enregistré sur un serve
 
 ~
 
-La modification du code source ou la réalisation de tests se fait donc directement sur le serveur en question. Chaque employé de \solulog{} dispose de sa propre session. L'accès se fait par TSE\footnote{TSE : Terminal Server Edition, un composant de Microsoft Windows (\og Connexion Bureau à distance \fg).}. De cette manière, toutes les données sont centralisées et sauvegardées quotidiennement.
+La modification du code source ou la réalisation de tests se fait donc directement sur le serveur en question. Chaque employé de \solulog{} dispose de sa propre session. L'accès se fait par TSE\footnote{TSE : Terminal Server Edition, une méthode pour se connecter à distance à une session \bsc{Windows}.}. De cette manière, toutes les données sont centralisées et sauvegardées quotidiennement.
 
 ~
 
@@ -21,10 +21,12 @@ Access possède lui-même une base de données interne, mais la taille de celle 
 Au final, Access ne sert donc que pour les parties interface et fonctionnelle du programme.
 
 \section{\fidit}
-Chez \fidit, le travail est réparti entre deux serveurs. Le premier permet le développement proprement dit des sites web. Il est configuré de manière à simplifier le travail du développeur. Le second serveur est là pour la version \og finale \fg{} des sites web, ceux qui seront utilisés par les internautes.
+Chez \fidit, le travail est réparti entre deux types de serveurs. Les premiers permettent le développement proprement dit des sites web. Ils sont configurés de manière à simplifier le travail du développeur et disposent de programmes adaptés au développement web.
+Les seconds type de serveurs sont là pour les versions finales des sites web. C'est sur ceux-là que les les utilisateurs vont se connecter et utiliser.
 
-Dans un soucis de simplicité, ces deux serveurs sont presque identiques. Tout les deux sont gérés avec Linux\footnote{Comme \bsc{Windows}, \bsc{Linux} est un système d'exploitation.}. Les employés travaillent donc directement sûr le contenu des serveurs. Ceci est rendu possible par l'utilisation d'un connexion dite SSH\footnote{SSH : Secure SHell, une interface d'échanges distant, disponible uniquement en mode texte.}.
+Dans un soucis de simplicité, tous les serveurs, quelque soit le type, sont presque identiques. Ils sont tous gérés avec Linux\footnote{Comme \bsc{Windows}, \bsc{Linux} est un système d'exploitation.}.
+Les employés de \fidit{} travaillent directement sur le contenu des ces serveurs par le biais de connexions appelées SSH\footnote{SSH : Secure SHell, une interface d'échanges distant, disponible uniquement en mode texte.}.
 
 ~
 
-L'édition de fichiers constituant les sites web est faite par le biais de l'éditeur VIM. Il est également possible d'importer des fichiers (comme les images) par le biais d'une connexion FTP\footnote{FTP : File Transfert Protocol, une méthode permettant le transfert de fichiers entre deux entités distantes.}.
+L'édition de fichiers sources constituant les sites web est faite par avec le logiciel VIM. En plus des connexions SSH, il est également possible d'importer directement des fichiers (comme les images) en utilisant une connexion FTP\footnote{FTP : File Transfert Protocol, une méthode permettant le transfert de fichiers entre deux entités distantes.}.

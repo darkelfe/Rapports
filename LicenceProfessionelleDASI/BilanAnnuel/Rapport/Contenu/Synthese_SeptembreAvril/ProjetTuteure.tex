@@ -1,0 +1,43 @@
+\chapter{Le projet tuteuré}
+\section{Introduction}
+Bien qu'il ai déjà fait l'objet d'un compte rendu détaillé de réalisation, je ne peux pas faire une synthèse de mon année sans le mentionner.
+
+~
+
+Bien évidemment, ce chapitre à pour but de donner seulement un aperçu de mon projet tuteuré. Si vous souhaiter un savoir plus à son propos, je vous conseille de vous référer au-dit compte rendu détaillé, disponible ici : \url{https://github.com/downloads/darkelfe/Rapports/LicenceProfesionnelleDASI_ProjetTuteure_Rapport.pdf}.
+
+\section{Présentation}
+\subsection{Origine du module}
+Parmi les nombreuses fonctionnalités proposées par \integrale, il existe plusieurs possibilités d'envoi automatique de documents. En effet, l'organisation du transport international nécessite l'envoi de divers documents officiels, par exemple à la douane, ou à la compagnie maritime pour réserver des emplacement sur un bateau, etc. A l'ère de l'informatique, tous ces documents sont désormais électroniques mais un problème majeur reste : il peuvent être très compliqués à écrire.
+
+C'est pour cette raison qu'\integrale{} propose d'écrire automatiquement ces documents, en y incluant toutes les informations nécessaires, et de les envoyer à son destinataire par un simple clic sur un bouton.
+
+~
+
+Dans le cadre du projet tuteuré, nous devons nous concentrer sur un seul de ces documents : le \emph{Boat Landing}, généralement abrégé en
+\og BL \fg. Il s'agit d'un fichier émit à l'attention de la compagnie maritime qui détaille le contenu d'un projet : nombre et propriétés des conteneurs\footnote{Ici, il est fait référence aux conteneurs \emph{maritimes}, c'est-à-dire de grandes boites rectangulaires métalliques.}, poids et volume des marchandises qui sont dedans, etc.
+
+Une des particularité de ce fichier, c'est ça totale illisibilité par un être humain. Les informations qu'il contient doivent respecter une norme particulière qui ne facilite pas la lecture.
+
+~
+
+Pour simplifier le travail de nos clients, \solulog{} à donc décider de créer un module qui crée ce fichier puis l'envoi par internet.
+
+\subsection{\pireus}
+Tout commence donc en 2006 avec Alexandre, qui est chargé de ce travail. Vu que \solulog{} souhaite pouvoir vendre ce futur module indépendamment de \integrale, il est décidé que le module, nommé \emph{\pireus}, sera écrit en PHP, avec seulement un petite partie en \vb{} pour transmettre les données nécessaire à la création du fichier.
+
+~
+
+Quelques temps plus tard, le module est prêt et mis en service. Les années passent et en 2009, Alexandre, le responsable du module, quitte \solulog. \pireus fonctionnant parfaitement, les choses reste comme cela.
+
+Mais à la fin de la même année, \solulog{} se trouve dans l'obligation de modifier ce module pour y intégrer de nouvelles fonctionnalités. Or, il y a un problème assez gênant : personne, au sein de \solulog, ne maitrise le PHP. Finalement, c'est Samuel qui se charge des modifications. Malgré l'aide d'Alexandre, Samuel ne peut appréhender la totalité du module et effectue seulement les modifications demandées.
+
+\subsection{Objectifs}
+C'est cet événement qui va pousser \solulog{} à réfléchir au problème. Il va finalement en ressortir que le module doit être entièrement réécrit en \vb{} et intégré à \integrale.
+
+~
+
+Mon arrivée en 2010 leur donne l'occasion d'effectuer cette tâche. Je suis donc chargé, à titre de projet tuteuré, de réécrire entièrement un module PHP en \vb. Je dois également en profiter pour écrire une documentation complète sur mon module, afin de simplifier les modifications ultérieures.
+
+\section{Déroulement du projet}
+bla bla bla

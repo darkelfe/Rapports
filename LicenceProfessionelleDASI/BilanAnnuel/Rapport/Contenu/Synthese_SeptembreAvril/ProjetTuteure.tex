@@ -1,10 +1,13 @@
 \chapter{Le projet tuteuré}
-\section{Introduction}
 Bien qu'il ai déjà fait l'objet d'un compte rendu détaillé de réalisation, je ne peux pas faire une synthèse de mon année sans le mentionner.
 
 ~
 
 Bien évidemment, ce chapitre à pour but de donner seulement un aperçu de mon projet tuteuré. Si vous souhaiter un savoir plus à son propos, je vous conseille de vous référer au-dit compte rendu détaillé, disponible ici : \url{https://github.com/downloads/darkelfe/Rapports/LicenceProfesionnelleDASI_ProjetTuteure_Rapport.pdf}.
+
+~
+
+Le projet tuteuré m'a occupé pendant presque un mois complet : octobre 2010.
 
 \section{Présentation}
 \subsection{Origine du module}
@@ -32,6 +35,8 @@ Quelques temps plus tard, le module est prêt et mis en service. Les années pas
 
 Mais à la fin de la même année, \solulog{} se trouve dans l'obligation de modifier ce module pour y intégrer de nouvelles fonctionnalités. Or, il y a un problème assez gênant : personne, au sein de \solulog, ne maitrise le PHP. Finalement, c'est Samuel qui se charge des modifications. Malgré l'aide d'Alexandre, Samuel ne peut appréhender la totalité du module et effectue seulement les modifications demandées.
 
+\vfill
+
 \subsection{Objectifs}
 C'est cet événement qui va pousser \solulog{} à réfléchir au problème. Il va finalement en ressortir que le module doit être entièrement réécrit en \vb{} et intégré à \integrale.
 
@@ -40,4 +45,44 @@ C'est cet événement qui va pousser \solulog{} à réfléchir au problème. Il 
 Mon arrivée en 2010 leur donne l'occasion d'effectuer cette tâche. Je suis donc chargé, à titre de projet tuteuré, de réécrire entièrement un module PHP en \vb. Je dois également en profiter pour écrire une documentation complète sur mon module, afin de simplifier les modifications ultérieures.
 
 \section{Déroulement du projet}
-bla bla bla
+\subsection{Étude de l'existant}
+Les premiers temps de mon projet tuteuré ont consisté à étudier le code du module existant, afin de comprendre comment celui-ci fonctionnait. Malheureusement, plusieurs problèmes sont venu compliquer l'affaire.
+
+~
+
+Premièrement, le code n'est pas documenté et peu commenté. Or, l'objectif principale de cette étude, c'est identifier la structure du fichier final et repérer quelle sont les informations stockée dedans. Sans une documentation qui indique quels segments\footnote{ici, le terme de \emph{segment} désigne un fragment du fichier final : les BL sont intégralement constitués des \emph{segments}.} comportent quelles informations, il devient difficile de comprendre le processus qui permet de passer des données de départ au résultat final. La seule documentation que j'avais à ma disposition est celle fournie par la norme des fichiers de BL : un énorme document pas facilement compréhensible, qui contient de nombreuse informations qui ne sont pas utilisées par \pireus.
+
+Le second problème, c'est que \pireus{} est écrit de manière générique, c'est à dire qu'il est prévu pour être facilement adapté à des fichiers autres que les BL. Même si c'est un point que \solulog{} ne souhaitait pas conserver, j'ai du faire le tri entre le code \og utile \fg, qui agit réellement sur les données et celui chargé de mettre en place le côté générique du code.
+
+Et enfin, le troisième problème se situe au niveau de l'échange des données entre \integrale, écrit en \vb, et le module en PHP. \pireus{} est écrit comme un programme indépendant, c'est à dire qu'il peut recevoir les informations qui lui sont nécessaire de n'importe quelle source. Pour que cela soit possible, il a fallu construire un support pour les données qui puisse être utilisé par tous. C'est dans ce bus que le \pireus{} utilise un ensemble de fonctions appelée \og SOAP \fg. Malheureusement, lorsque j'ai commencé mon projet tuteuré je ne connaissais absolument SOAP, j'ai donc dû m'adapter ce code pour le moins étrange.
+
+~
+
+Le cumul de ces problèmes m'a totalement bloqué car ils rendaient la compréhension du code totalement impossible. Après avoir réfléchi, j'ai décider de changer de méthode pour approcher le module et est décidé d'utiliser la \emph{rétro-ingénierie}.
+
+~
+
+\fbox{\begin{minipage}[c]{18.1cm}
+	\begin{bf}La rétro-ingénierie\end{bf}
+
+	La rétro-ingénierie est un technique, souvent utilisée en informatique mais aussi dans d'autres domaines, qui consiste à partir du résultat d'un processus pour retrouver le point de départ.
+\end{minipage}}
+
+~
+
+J'ai donc pris un fichier de BL et en faisant le parallèle avec les informations de départ, j'ai enfin pu identifier une majorité des segments et de leur construction. En ce concerne la partie pas encore identifiée, cela c'est fait au fur et à mesure que je réécrivais le module : je comparais mon travail au module \pireus.
+
+\subsection{Création du message}
+L'étape suivante, c'est de réécrire le module. Le processus à un ordre d'exécution très précis. Afin de simplifier l'ensemble, je l'ai découpé en plusieurs tâches.
+
+\subsubsection{Lecture des données}
+La première chose à faire, c'est de récupérer l'ensemble des données nécessaires à l'écriture d'un BL. Ces valeurs devant être stockée en mémoire le temps du processus, j'ai créé plusieurs structures de données. Ma première tentative n'ayant pas satisfait mon supérieur, j'ai du créer de nouvelles structures plus conformes au souhaits de mon tuteur entreprise.
+
+Une fois les données prêtes à être stockées, la lecture elle-même à commencée. Rien de très compliqué : les données sont extraites de la base de donnée, quelques vérifications de routine puis on stocke le résultat dans la variable qui lui correspond.
+
+\vfill
+
+\subsubsection{Tests sur les données}
+Comme je l'ai déjà mentionné, les BL sont régis par des règles et des restriction très précise. Par exemple, le nom du destinataire ne peut pas dépasser trente-cinq caractères, etc. Donc, avant d'écrire le message de BL, il faut mener plusieurs tests pour vérifier que toutes les données sont correctes et prêtes à être insérer dans un BL.
+
+La seule difficulté à été de fusionner les tests effectué par \integrale{} après la lecture, et ceux fait par \pireus{} avant l'écriture du message.

@@ -5,10 +5,6 @@ Bien qu'il ai déjà fait l'objet d'un compte rendu détaillé de réalisation, 
 
 Bien évidemment, ce chapitre à pour but de donner seulement un aperçu de mon projet tuteuré. Si vous souhaiter un savoir plus à son propos, je vous conseille de vous référer au-dit compte rendu détaillé, disponible ici : \url{https://github.com/downloads/darkelfe/Rapports/LicenceProfesionnelleDASI_ProjetTuteure_Rapport.pdf}.
 
-~
-
-Le projet tuteuré m'a occupé pendant presque un mois complet : octobre 2010.
-
 \section{Présentation}
 \subsection{Origine du module}
 Parmi les nombreuses fonctionnalités proposées par \integrale, il existe plusieurs possibilités d'envoi automatique de documents. En effet, l'organisation du transport international nécessite l'envoi de divers documents officiels, par exemple à la douane, ou à la compagnie maritime pour réserver des emplacement sur un bateau, etc. A l'ère de l'informatique, tous ces documents sont désormais électroniques mais un problème majeur reste : il peuvent être très compliqués à écrire.
@@ -45,44 +41,67 @@ C'est cet événement qui va pousser \solulog{} à réfléchir au problème. Il 
 Mon arrivée en 2010 leur donne l'occasion d'effectuer cette tâche. Je suis donc chargé, à titre de projet tuteuré, de réécrire entièrement un module PHP en \vb. Je dois également en profiter pour écrire une documentation complète sur mon module, afin de simplifier les modifications ultérieures.
 
 \section{Déroulement du projet}
-\subsection{Étude de l'existant}
-Les premiers temps de mon projet tuteuré ont consisté à étudier le code du module existant, afin de comprendre comment celui-ci fonctionnait. Malheureusement, plusieurs problèmes sont venu compliquer l'affaire.
+Mon projet tuteuré c'est déroulé en deux grandes parties, que je vais détailler ici.
+
+\subsection{Phase 1 : écriture du nouveau module}
+La première partie, qui s'est déroulé sur l'ensemble du mois d'octobre et de novembre 2010, à eu pour objectif principal de créer le nouveau module.
 
 ~
 
-Premièrement, le code n'est pas documenté et peu commenté. Or, l'objectif principale de cette étude, c'est identifier la structure du fichier final et repérer quelle sont les informations stockée dedans. Sans une documentation qui indique quels segments\footnote{ici, le terme de \emph{segment} désigne un fragment du fichier final : les BL sont intégralement constitués des \emph{segments}.} comportent quelles informations, il devient difficile de comprendre le processus qui permet de passer des données de départ au résultat final. La seule documentation que j'avais à ma disposition est celle fournie par la norme des fichiers de BL : un énorme document pas facilement compréhensible, qui contient de nombreuse informations qui ne sont pas utilisées par \pireus.
+Cette première phase est elle-même découpé en sept tâches successives.
 
-Le second problème, c'est que \pireus{} est écrit de manière générique, c'est à dire qu'il est prévu pour être facilement adapté à des fichiers autres que les BL. Même si c'est un point que \solulog{} ne souhaitait pas conserver, j'ai du faire le tri entre le code \og utile \fg, qui agit réellement sur les données et celui chargé de mettre en place le côté générique du code.
+\subsubsection{Analyse de l'existant}
+Au tout début, avant même de penser à réécrire \pireus, il faut commencer par savoir de quoi traite le module et comment il est construit. J'ai donc commencé par étudier le module et la manière dont est organisé son contenu (fichiers sources, etc.). Ensuite, je me suis lancé dans l'étude du code PHP lui-même. J'ai eu beaucoup de mal, notamment en l'absence d'une documentation claire et l'utilisation de fonctions que je ne connaissait pas encore. Mais j'ai au final réussi à identifier la majorité des données fournies par l'utilisateur dans le fichier final.
 
-Et enfin, le troisième problème se situe au niveau de l'échange des données entre \integrale, écrit en \vb, et le module en PHP. \pireus{} est écrit comme un programme indépendant, c'est à dire qu'il peut recevoir les informations qui lui sont nécessaire de n'importe quelle source. Pour que cela soit possible, il a fallu construire un support pour les données qui puisse être utilisé par tous. C'est dans ce bus que le \pireus{} utilise un ensemble de fonctions appelée \og SOAP \fg. Malheureusement, lorsque j'ai commencé mon projet tuteuré je ne connaissais absolument SOAP, j'ai donc dû m'adapter ce code pour le moins étrange.
+\subsubsection{Récupération des valeurs}
+Les valeurs fournie par l'utilisateur sont stockées dans la base de donnée. La première chose que j'ai donc dû faire dans mon nouveau module, nommé \emph{BL\_INTTRA}, ça été de lire ses valeurs et de les placer en mémoire, afin qu'elles soient facilement accessible par la suite. J'ai eu quelques désaccords avec mon supérieur sur la manière de stocker ces valeurs en questions, mais nous sommes finalement parvenu à un compromis.
+
+\subsubsection{Tests des valeurs}
+Les valeurs fournies par l'utilisateur peuvent contenir des erreurs, des éléments incompatible avec les BL ou il peut également manquer des informations. Donc avant de générer le fichier de BL final, j'ai dû tester toutes les valeurs lues. Heureusement pour moi, ces tests était déjà présent dans le module d'Alexandre. J'ai donc juste eu à les convertir en \vb et les intégrer à mon module. J'ai tout de même réorganisé l'ordre des tests pour que ceux-ci soient groupés par le type des données sur lesquels ils portaient.
+
+\subsubsection{Génération du BL}
+A ce moment là, tout est prêt pour générer le message de BL, je me suis donc lancé dedans. Avec l'aide de \pireus{} et de la documentation officielle de la norme \emph{IFTMIN D99B}\footnote{Il s'agit de norme qui régit le contenu des fichiers de BL.}, j'ai entrepris la longue et difficile tâche de générer le BL. Cette partie n'a pas été sans mal. J'ai eu de nombreux problèmes, notamment pour calculer certaines variables essentielles au fichier final (poids des marchandises, numéro de révision, etc.), mais j'ai finalement réussi à m'en sortir.
+
+\subsubsection{Écriture d'une documentation}
+Comme il était prévus initialement, j'ai dû écrire une documentation portant sur la génération d'un BL. J'ai profité du fait que les segments\footnote{Un segment est un fragment d'un fichier de BL. Il sont séparé par une apostrophe : \og ' \fg.} et leurs particularités étaient encore frais dans mémoire pour réaliser celle-ci. Une première partie de la documentation détaille l'ensemble des tests à mener sur les valeurs avant d'écrire le BL. Je détaille donc les conditions du test, certains n'étant obligatoire que dans certains cas, la valeur à tester ainsi que les possibles tests qui peuvent découler d'une valeur particulière, comme le Brésil pour le port de destination par exemple. La seconde partie de la documentation porte sur les segments : liste et ordre d'apparition dans le BL, mais également lesquels sont obligatoires, les valeurs qu'ils contiennent ou encore si ces valeurs sont elles-mêmes obligatoires.
 
 ~
 
-Le cumul de ces problèmes m'a totalement bloqué car ils rendaient la compréhension du code totalement impossible. Après avoir réfléchi, j'ai décider de changer de méthode pour approcher le module et est décidé d'utiliser la \emph{rétro-ingénierie}.
+Voici deux exemples de segments issus de ma documentation :
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=.54]{Contenu/Synthese_SeptembreAvril/Images/Segment_TDT.png}
+	\end{center}
 
-~
+	\caption{Détails du segment \og TDT \fg}
+	\label{segment_TDT}
+\end{figure}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=.54]{Contenu/Synthese_SeptembreAvril/Images/Segment_NAD_CA.png}
+	\end{center}
 
-\fbox{\begin{minipage}[c]{18.1cm}
-	\begin{bf}La rétro-ingénierie\end{bf}
+	\caption{Détails du segment \og NAD-CA \fg}
+	\label{segment_NAD_CA}
+\end{figure}
 
-	La rétro-ingénierie est un technique, souvent utilisée en informatique mais aussi dans d'autres domaines, qui consiste à partir du résultat d'un processus pour retrouver le point de départ.
-\end{minipage}}
+\subsubsection{Tests du module}
+Une fois la génération des BL fonctionnelle, il a fallu la tester. Il y a trois types de test différents successifs. Le premier test a consisté à vérifier le fichier obtenu par un outil de test fourni par la norme : \og EDI Test Tool Kit \fg. Ensuite, avec de fausses données entrée manuellement, j'ai comparé mes résultats avec ceux de \pireus, portant bien sûr sur les mêmes données. Cela m'a permis de corriger plusieurs oublis de ma part. Et pour finir, mon module à été installé sur le serveur de test d'un de nos client. A partir de ça, j'ai pu faire fonctionner \emph{BL\_INTTRA} sur de véritables données. Et j'ai pu tester là aussi le résultat en le comparant aux fichiers générés chez le client.
 
-~
+\subsubsection{Envoi par FTP}
+Il s'agit de la partie la plus simple et la plus courte de mon projet tuteuré : envoyer le BL généré à l'organisme correspondant par internet, par le biais du protocole FTP. Par chance, Alexandre avait déjà réalisé par le passé un ensemble de fonction qui simplifie à l'extrême l'envoi et la récupération de fichier par FTP. J'ai donc simplement réutilisé ces fonctions pour faire mon envoi.
 
-J'ai donc pris un fichier de BL et en faisant le parallèle avec les informations de départ, j'ai enfin pu identifier une majorité des segments et de leur construction. En ce concerne la partie pas encore identifiée, cela c'est fait au fur et à mesure que je réécrivais le module : je comparais mon travail au module \pireus.
+\subsection{Phase 2 : Intégration et évolution}
+La seconde partie de mon projet tuteuré c'est déroulé plus tard dans l'année, à la jonction entre le mois de décembre 2010 et janvier 2011. Ma principale mission était d'intégrer définitivement mon module à \integrale{} et d'y ajouter quelques fonctionnalités.
 
-\subsection{Création du message}
-L'étape suivante, c'est de réécrire le module. Le processus à un ordre d'exécution très précis. Afin de simplifier l'ensemble, je l'ai découpé en plusieurs tâches.
+\subsubsection{Récupération des statuts}
+Lorsqu'un client envoi un BL, la société réceptrice met à sa disposition un autre document qui permet de connaître l'état du BL : en cours de traitement, validé ou refusé. \pireus{} se chargeant déjà d'aller récupérer ces statuts par le passé, j'ai également dû le faire. Le traitement est au final très simple : aller récupérer les statuts par FTP, puis de les analyser. J'ai profité de cette réécriture pour simplifier le processus du module d'Alexandre. En effet, celui-ci extrayait beaucoup d'informations inutile du message de statut. Dans mon module, je me contente de récupérer le statut et d'avertir l'utilisateur du statut ainsi lu.
 
-\subsubsection{Lecture des données}
-La première chose à faire, c'est de récupérer l'ensemble des données nécessaires à l'écriture d'un BL. Ces valeurs devant être stockée en mémoire le temps du processus, j'ai créé plusieurs structures de données. Ma première tentative n'ayant pas satisfait mon supérieur, j'ai du créer de nouvelles structures plus conformes au souhaits de mon tuteur entreprise.
+\subsubsection{Intégration}
+Dans un premier temps, j'ai du terminer de placer mon module dans \integrale. A ce moment là, mon module était déjà physiquement présent dans le logiciel. De même, appuyer sur le bouton de génération provoquait un appel à mon module. Mais étant donné que \emph{BL\_INTTRA} était tout neuf, \solulog{} n'a voulu l'intégrer que la seule condition qu'il y ai une solution de replis : si mon module échoue à générer un BL, que le client puisse facilement utiliser \pireus. J'ai donc du mettre en place un petit système de choix. Chaque utilisateur, dans son paramétrage peut décider d'utiliser mon module ou celui d'Alexandre. Ensuite, quand un utilisateur clique sur le bouton de génération d'un BL, \integrale{} appel le système correspondant.
 
-Une fois les données prêtes à être stockées, la lecture elle-même à commencée. Rien de très compliqué : les données sont extraites de la base de donnée, quelques vérifications de routine puis on stocke le résultat dans la variable qui lui correspond.
+\subsubsection{Recette}
+Bien que cette étape est été prévu pour plus tard dans l'année (au alentour du mois d'avril), la mise en place chez le client de module s'est produite bien plus tôt suite à un appel d'un client. En effet, celui-ci a tenté de générer un BL contenant trente-quatre conteneurs. Le problème est que la norme impose un maximum de trente marchandises par conteneur et cent conteneurs maximum par BL. Or, au grand regret de notre client, \pireus{} avait un défaut de conception qui avait pour conséquence d'inverser ces deux limites. Donc impossible pour notre client de générer le BL. Face à l'urgence de la situation, \solulog{} à décider de mettre en place mon module directement chez le client. C'est donc ainsi que la recette de mon module à démarré.
 
-\vfill
-
-\subsubsection{Tests sur les données}
-Comme je l'ai déjà mentionné, les BL sont régis par des règles et des restriction très précise. Par exemple, le nom du destinataire ne peut pas dépasser trente-cinq caractères, etc. Donc, avant d'écrire le message de BL, il faut mener plusieurs tests pour vérifier que toutes les données sont correctes et prêtes à être insérer dans un BL.
-
-La seule difficulté à été de fusionner les tests effectué par \integrale{} après la lecture, et ceux fait par \pireus{} avant l'écriture du message.
+\subsubsection{Intégration des NVOCC}
+La dernier point de mon projet tuteuré à consisté ajouter à mon module une fonctionnalité absente de \pireus{} : la gestion des \emph{NVOCC}. Les NVOCC sont des compagnies maritimes un peu particulière, qui n'ont pas exactement les mêmes exigences qu'une compagnie maritime standard. Cela influe sur les tests qui doivent être effectués lors de la génération d'un BL. Donc, via la documentation officielle des BL à propos des NVOCC, j'ai modifié mes tests en fonction du type de compagnie maritime (standard ou NVOCC). J'ai donc groupé d'un côté les fonctions propres aux NVOCC et le reste d'un autre côté.

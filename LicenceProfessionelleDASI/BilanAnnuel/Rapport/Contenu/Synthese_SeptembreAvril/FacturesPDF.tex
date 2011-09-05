@@ -1,11 +1,38 @@
-\chapter{Gestion des factures aux format PDF}
+\chapter{Gestion des factures au format PDF}
 \section{Présentation}
-bla bla bla
+\integrale propose dans de nombreux cas la possibilité d'exporter des données sous la forme d'un tableau ou d'un document texte. Les deux suites bureautique géré sont Microsoft \bsc{Office} et \bsc{OpenOffice.org}, selon les possibilité du client. Dans le cas où celui-ci dispose d'\bsc{OpenOffice}, \integrale{} permet également d'exporter diverses choses directement vers le format PDF\footnote{PDF : Portable Document Format, il s'agit d'un format informatique de document, extrêmement connu et utilisé de partout.}.
+
+~
+
+Parmi les grandes demandes des clients, il y en une qui apparaissait souvent : la possibilité d'exporter les factures que génère \integrale{} au format PDF. La problématique est que pour générer ses factures, \solulog{} utilise un élément propre à Microsoft \bsc{Access} : les \og états \fg. Compte tenu du fait que c'est \bsc{Access} qui affiche les factures, il est impossible de les exporter vers \bsc{OpenOffice} pour les transformer en PDF. De plus, il pourrait être très avantageux de proposer l'export PDF à tous les clients, y compris ceux ne disposant pas d'\bsc{OpenOffice}.
+
+~
+
+\solulog{} m'a donc chargé d'étudier un possible système de génération de PDF et peut être de la mettre en place.
+
+\section{Étude d'un système d'export PDF}
+En informatique, il n'existe que trois moyens \og simple \fg{} d'exporter quelque chose en PDF.
+
+~
+
+La première consiste à écrire soit-même le fichier PDF à partir des éléments voulu. Mais cela pose un grand problème : il faut connaître le format du fichier dans ses moindres détails. Si nous tenons compte de la complexité d'un format comme le PDF, il presque impossible de procéder comme cela. Et aucune entreprise n'est prête à assumer le coût d'un tel développement, surtout s'il existe déjà des outils permettant de le faire.
+
+~
+
+La seconde solution consiste à utiliser une bibliothèque de fonctions\footnote{Une bibliothèque de fonctions est un recueil de fonctions portant sur un même thème ou ayant le même but. Exemple : générer un PDF.} qui permet la création de PDF. Ce choix offre des avantages : pas besoin de connaître les détails du format PDF, des fonctions généralement simple à utiliser, etc. Mais un des points négatif, c'est que nous somme dépendant du langage utilisé : celui-ci ne dispose pas forcément de telles bibliothèques. C'est typiquement le cas du \vb, notamment pour \bsc{Access} : il n'existe aucune bibliothèque permettant la création des fichiers PDF.
+
+~
+
+La troisième et dernière solution consiste à employer un programme externe. Nous lui envoyons des données (par exemple une image), et le programme se charge de créer un PDF associé. Un des grands avantages, c'est la possibilité de se séparer du langage. Mais il y a aussi des défauts : tous les programmes externe ne sont pas forcément simple à utiliser, il faut que l'application en question soit disponible sur toutes les machines utilisant votre programme, etc.
+
+~
+
+Au final, j'ai opté pour la troisième solution. Mon choix s'est fixé sur un programme très connu dans le milieu de l'informatique : \pdfcreator. Il dispose de nombreux avantages : il est très léger et simple, tant pour l'installer que pour l'utiliser et dispose également d'une API\footnote{API : Application Programming Interface, c'est une \emph{bibliothèque de fonctions} permettant de manipuler un programme.} simple et disponible dans de nombreux langages, y compris le \vb.
+
+\pdfcreator{} est une imprimante virtuelle, c'est à dire que c'est programme qui se comporte exactement comme un imprimante : on peut lui envoyer n'importe quelle information comme à une imprimante, et au final obtenir, au lieu d'une feuille avec le résultat comme d'habitude, un fichier PDF avec le résultat dedans.
 
 \section{Impression au format PDF}
-\subsection{Présentation}
 bla bla bla
 
 \section{Génération automatique de facture}
-\subsection{Présentation}
 bla bla bla

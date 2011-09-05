@@ -32,7 +32,40 @@ Au final, j'ai opté pour la troisième solution. Mon choix s'est fixé sur un p
 \pdfcreator{} est une imprimante virtuelle, c'est à dire que c'est programme qui se comporte exactement comme un imprimante : on peut lui envoyer n'importe quelle information comme à une imprimante, et au final obtenir, au lieu d'une feuille avec le résultat comme d'habitude, un fichier PDF avec le résultat dedans.
 
 \section{Impression au format PDF}
-bla bla bla
+Après avoir communiqué le résultat de cette étude à mon supérieur, il a été décidé que je devais le mettre en place pour les factures.
+
+~
+
+J'ai donc commencé par chercher sur internet des exemples d'utilisation de l'API de \pdfcreator. Heureusement, je n'ai pas eu à chercher longtemps et j'ai rapidement trouvé un exemple clair, simplet et fonctionnel. Ensuite, j'ai essayé de trouver la documentation de \pdfcreator, mais ses créateurs ont visiblement jugé que les noms des fonctions et de leurs paramètres pour se passer d'une documentation explicite.
+
+~
+
+Avec plusieurs exemples, je me suis dans lancer dans une tentative d'impression au format PDF. Tout d'abord, je me suis concentré uniquement sur les factures. Après plusieurs essais, j'ai finalement réussi à imprimer une des factures en PDF.
+
+Afin de simplifier la gestion des PDF, j'ai décider de déplacer l'impression PDF dans un module indépendant. Il suffit d'y appeler une seule fonction en indiquant la facture voulue et tout se fait automatiquement.
+
+\section{Chemin paramétrable}
+Après quelques tests, mon module à été déployé chez nos clients. Face au succès de cette fonctionnalité et à diverses suggestions des clients, il a été décidé que chaque facture serait automatiquement exporté de manière invisible sur les serveurs de nos clients (il s'agit d'un archivage des factures).
+
+Mais nos clients ne classent pas tous leurs documents de la même manière. Certains utilisent uniquement la date alors que d'autres préfère ranger selon le nom de leurs clients. Afin d'offrir un système commun et souple, \solulog{} m'a chargé de créer un chemin pour les PDF qui peut dépendre de plusieurs variables.
+
+~
+
+Le développement c'est fait en deux temps. En premier, développer une fenêtre qui permette de régler ces chemins. Voici celui que j'ai développé pour les factures PDF :
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=1]{Contenu/Synthese_SeptembreAvril/Images/Chemin_PDF.png}
+	\end{center}
+
+	\caption{Réglage du chemin pour les factures en PDF}
+	\label{segment_NAD_CA}
+\end{figure}
+
+Ensuite, j'ai du mettre en place ce système dans le module d'impression PDF. Des chemins paramétrables existaient déjà pour d'autres parties de \integrale, j'ai donc pu les recopier en modifiant légèrement le code pour l'adapter à mes besoins.
 
 \section{Génération automatique de facture}
-bla bla bla
+Malheureusement, le système ci dessus ne s'applique qu'au factures que l'utilisateur exporte, quelle qu'en soit la raison. Il fallait donc un programme supplémentaire qui se charge automatiquement de générer les PDF des factures qui n'en ont pas encore de version PDF.
+
+~
+
+Le développement final à été très simple car l'aspect automatique du lancement du programme est géré par le serveur du client, qui peut également choisir l'heure de l'exécution de cette tâche (voir de la désactiver). Il ne restait donc à faire qu'un programme qui parcours la liste des factures et regarde s'il existe un PDF qui lui est associé. Si ce n'est pas le cas, nous en générons un.

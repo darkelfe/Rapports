@@ -8,6 +8,10 @@ Une petite entreprise qui gère seulement un entrepôt n'a certaines pas besoins
 
 C'est pour offrir un alternative à ce dilemme que j'ai eu ce troisième projet. Le but était d'offrir à ceux qui veulent, un module supplémentaire permettant de faire une gestion commerciale très simplifié des entrepôts. Un des avantages serait l'intégration de ce module, qui aurait des liens directs avec le module de gestion d'entrepôts.
 
+~
+
+Ce projet ne s'est pas fait d'un seul bloc. Il était et est toujours considéré comme mineur, les autres tâches ayant toujours la priorité. J'ai donc commencé le projet au milieu du mois de février 2011 jusqu'à la fin du mois d'avril 2011. Mais il a été régulièrement interrompu par d'autres tâches mineures.
+
 \section{Étude avec UML}
 Dans le cas de ce projet, il s'agissait de commencer au tout début. Ma première tâche à donc été d'étudier le projet. Grâce aux cours reçu lors de cette année, mon choix s'est rapidement porté sur l'UML\footnote{UML : \emph{Unified Modeling Language}, un \og langage \fg{} permettant de modéliser les différents aspects d'une tâche, d'un objet. Il est très utilisé en informatique pour modéliser les programmes avant leur développement proprement dit.}.
 
@@ -19,8 +23,17 @@ Ce module module ne devant être qu'une version très simplifié d'une \og réel
 
 Lors de cette étude, j'ai rapidement remarqué l'étrange symétrie qui existe entre les clients et les fournisseurs d'une entreprise. Même si ils ne s'agit pas de la même chose, même d'un point de vue informatique, les choses fondamentales à retenir sont presque les mêmes. Les échanges, même s'il leur sens est opposé, sont identiques (presque les mêmes caractéristiques).
 
+Afin de simplifier mon étude, j'ai décidé de me concentrer en premier sur une seule moitié de l'étude : celle en rapports avec les clients. Ensuite, dupliquer cette partie en y apportant quelques modifications donnerons l'étude des fournisseurs.
+
+\subsubsection{Réutilisation d'éléments existants}
+Les clients et les fournisseurs de ce module ne sont pas les seules \og personnes \fg{} à être décrite dans \integrale. De même, les articles auxquels font références les commandes et les factures existent déjà dans le gestion d'entrepôts.
+
+~
+
+Afin de limiter la duplication inutile des données, j'ai réutilisé les éléments existant de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû légèrement intervenir sur la structure de ces tables\footnote{Les base de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données.
+
 \section{Réalisation du module}
-bla bla bla
+J'ai commencé par agrandir la base de données pour y ajouter les tables nécessaires. La structure de celle-ci ayant été en grande partie faite lors de l'étude, ça ne m'a pas pris longtemps.
 
 \section{Ce qu'il reste à faire}
 bla bla bla

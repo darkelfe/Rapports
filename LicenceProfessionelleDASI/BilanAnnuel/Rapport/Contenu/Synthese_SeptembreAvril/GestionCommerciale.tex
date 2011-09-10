@@ -1,12 +1,14 @@
 \chapter{Gestion commerciale d'un entrepôt}
 \section{Présentation}
-Malgré toutes ses fonctionnalités, \integrale{} ne dispose pas de gestion commerciale. En effet, la plupart des entreprises préfèrent se tourner vers un logiciel  tiers comme \bsc{Ciel} pour gérer cet aspect de leur entreprise. Les deux grands problèmes des logiciels de comptabilité, c'est leur prix et le complexité.
-
-Une petite entreprise qui gère seulement un entrepôt n'a certaines pas besoins de l'ensemble des fonctionnalités proposées par \bsc{Ciel} et ses concurrents. Le prix allant de paire avec la complexité du logiciel et sa capacité à couvrir un maximum de chose, ils sont généralement hors de prix pour les petites sociétés. Elles doivent alors faire leur gestion elle-même avec tous les problèmes et risques que cela occasionne.
+Malgré toutes ses fonctionnalités, \integrale{} ne dispose pas de gestion commerciale. En effet, la plupart des entreprises préfèrent se tourner vers un logiciel  tiers spécialisé comme \bsc{Ciel} pour gérer cet aspect de leur entreprise. Les deux grands problèmes des logiciels de comptabilité, c'est leur prix et leur complexité.
 
 ~
 
-C'est pour offrir un alternative à ce dilemme que j'ai eu ce troisième projet. Le but était d'offrir à ceux qui veulent, un module supplémentaire permettant de faire une gestion commerciale très simplifié des entrepôts. Un des avantages serait l'intégration de ce module, qui aurait des liens directs avec le module de gestion d'entrepôts.
+Une petite entreprise qui gère seulement un entrepôt n'a certainement pas besoins de l'ensemble des fonctionnalités proposées par \bsc{Ciel} ou ses concurrents. Le prix allant de pair avec la complexité du logiciel et sa capacité à couvrir un maximum de chose, ils sont généralement hors de prix pour les petites sociétés. Elles doivent alors faire leur gestion elle-même avec tous les problèmes et risques que cela occasionne.
+
+~
+
+C'est pour offrir une alternative à ce dilemme que j'ai eu ce troisième projet. Le but était d'offrir à ceux qui le veulent, un module supplémentaire permettant de faire une gestion commerciale très simplifié des entrepôts. Un des avantages serait l'intégration de ce module dans les progiciels de \solulog, qui aurait alors des liens directs avec le module de gestion d'entrepôts.
 
 ~
 
@@ -17,20 +19,20 @@ Dans le cas de ce projet, il s'agissait de commencer au tout début. Ma premièr
 
 ~
 
-Ce module module ne devant être qu'une version très simplifié d'une \og réelle \fg{} gestion commerciale, je me suis restreint à la gestions des clients / fournisseurs et les deux grands échanges que l'on est amené à partager avec eux : les commandes et les factures.
+Ce module ne devant être qu'une version très simplifié d'une \og réelle \fg{} gestion commerciale, je me suis restreint à la gestions des clients / fournisseurs et les deux grands échanges que l'on est amené à partager avec eux : les commandes et les factures.
 
 ~
 
-Lors de cette étude, j'ai rapidement remarqué l'étrange symétrie qui existe entre les clients et les fournisseurs d'une entreprise. Même si ils ne s'agit pas de la même chose, même d'un point de vue informatique, les choses fondamentales à retenir sont presque les mêmes. Les échanges, même s'il leur sens est opposé, sont identiques (presque les mêmes caractéristiques).
+Lors de cette étude, j'ai rapidement remarqué l'étrange symétrie qui existe entre les clients et les fournisseurs d'une entreprise. Même s'il ne s'agit pas de la même chose, y compris d'un point de vue informatique, les choses fondamentales à retenir sont presque les mêmes. Si leur sens est opposé, les échanges sont néanmoins identiques.
 
-Afin de simplifier mon étude, j'ai décidé de me concentrer en premier sur une seule moitié de l'étude : celle en rapports avec les clients. Ensuite, dupliquer cette partie en y apportant quelques modifications donnerons l'étude des fournisseurs.
+Afin de simplifier mon étude, j'ai décidé de me concentrer en premier sur une seule moitié de celle-ci : la partie en rapport avec les clients. Ensuite, il était prévu de dupliquer cette partie en y apportant quelques modifications qui  donnerons le reste de l'étude.
 
 \subsubsection{Réutilisation d'éléments existants}
 Les clients et les fournisseurs de ce module ne sont pas les seules \og personnes \fg{} à être décrite dans \integrale. De même, les articles auxquels font références les commandes et les factures existent déjà dans le gestion d'entrepôts.
 
 ~
 
-Afin de limiter la duplication inutile des données, j'ai réutilisé des éléments existant de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû prévoir une légèrement intervention sur la structure de ces tables\footnote{Les base de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données (comme poiur la table \og article \fg, par exemple).
+Afin de limiter la duplication inutile des données, j'ai réutilisé des éléments existant de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû prévoir une légèrement intervention sur la structure de ces tables\footnote{Les base de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données.
 
 \section{Réalisation du module}
 J'ai commencé par agrandir la base de données pour y ajouter les tables nécessaires. La structure de celle-ci ayant été en grande partie faite lors de l'étude, ça ne m'a pas pris longtemps.

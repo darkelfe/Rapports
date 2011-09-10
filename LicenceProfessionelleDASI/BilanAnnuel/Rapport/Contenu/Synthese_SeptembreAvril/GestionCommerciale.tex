@@ -30,10 +30,43 @@ Les clients et les fournisseurs de ce module ne sont pas les seules \og personne
 
 ~
 
-Afin de limiter la duplication inutile des données, j'ai réutilisé les éléments existant de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû légèrement intervenir sur la structure de ces tables\footnote{Les base de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données.
+Afin de limiter la duplication inutile des données, j'ai réutilisé des éléments existant de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû prévoir une légèrement intervention sur la structure de ces tables\footnote{Les base de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données (comme poiur la table \og article \fg, par exemple).
 
 \section{Réalisation du module}
 J'ai commencé par agrandir la base de données pour y ajouter les tables nécessaires. La structure de celle-ci ayant été en grande partie faite lors de l'étude, ça ne m'a pas pris longtemps.
+
+~
+
+Pour débuter le module lui-même, j'ai créé un nouveau formulaire présentant les données de la table au centre de celui-ci : les commandes. Ce formulaire est un petit peu particulier : il est constitué de deux parties. La première est réellement relative aux données de la commande comme la date, le client associé, etc. La seconde partie, quand à elle, est la liste des articles présent dans la commande. Cette partie est écrite dans un second formulaire qui est ensuite intégré au premier.
+
+~
+
+Comme pour tous les formulaires, leur réalisation s'est déroulée en trois temps :
+\begin{enumerate}
+	\item Création de l'interface visuelle, c'est à dire tout ce qui visible à l'utilisateur.
+	\item Création de l'aspect fonctionnel : comment le formulaire réagit aux actions d'un utilisateur (clic sur un bouton, etc.).
+	\item Test du formulaire.
+\end{enumerate}
+
+~
+
+Suite à cela, j'ai crée deux autre formulaires. Le premier liste les commandes existantes, soit dans leur totalité, soit selon un filtre introduit par le second formulaire. Quand au deuxième, il présente les différents champs qui peuvent être filtré pour trouver une ou plusieurs commandes en particulier.
+
+Cette paire est présente à de nombreuse reprise dans \integrale, je n'ai donc pas mis longtemps à les faire.
+
+~
+
+Après les commandes, je suis passé aux factures. J'ai employé exactement le même principe :
+\begin{itemize}
+	\item un formulaire détaillant le contenu d'une facture ;
+	\item une paire de formulaire pour la recherche.
+\end{itemize}
+
+~
+
+Et pour finir, je suis passés aux tests avec de fausses données : création, consultation / modification et suppression de facture.
+
+%\subsubsection{}
 
 \section{Ce qu'il reste à faire}
 bla bla bla

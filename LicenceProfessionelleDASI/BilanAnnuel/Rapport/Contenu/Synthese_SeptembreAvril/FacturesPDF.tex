@@ -45,6 +45,7 @@ Avec plusieurs exemples, je me suis lancé dans une tentative d'impression au fo
 Afin de simplifier la gestion des PDF, j'ai décider de déplacer l'impression des PDF dans un module indépendant. Il suffit d'y appeler une seule fonction en indiquant la facture voulue et tout se fait automatiquement.
 
 \section{Chemin paramétrable}
+\label{pdf_param}
 Après quelques tests, mon module à été déployé chez nos clients. Face au succès de cette fonctionnalité et à diverses suggestions des clients, nous avons décidé que chaque facture serait automatiquement exporté de manière invisible sur les serveurs de nos clients (système d'archivage des factures).
 
 Mais nos clients ne classent pas tous leurs documents de la même manière. Certains utilisent uniquement la date alors que d'autres préfèrent ranger selon le nom de leurs clients. Afin d'offrir un système commun et souple, \solulog{} m'a donné pour tâche de créer un chemin pour les PDF qui peut dépendre de plusieurs variables.

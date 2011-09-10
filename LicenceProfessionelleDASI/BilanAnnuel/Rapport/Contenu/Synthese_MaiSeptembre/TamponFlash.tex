@@ -1,8 +1,132 @@
 \chapter{Tampon-FLASH}
-Tampon-FLASH est LE projet dette seconde partie de mon année. Il m'a occupé l'ensemble de mon temps et permis de découvrir de nombreuses choses relatives à \fidit.
+Tampon-FLASH est le projet principal de cette seconde partie de mon année. Il m'a occupé l'ensemble de mon temps et permis de découvrir de nombreuses choses relatives à \fidit.
 
 \section{Présentation}
 Le but principal de ce projet est que je réalise un site web complet tout en découvrant l'équipe, les ressources et les méthodes de \fidit, le tout pour le compte de \solulog.
 
 \subsection{Mes collaborateurs}
 Même si je suis l'acteur principal de ce projet, je ne suis pas seul. J'ai avec moi quatre autres personnes :
+\begin{itemize}
+	\item Jean-Michel \bsc{Colas} : chef de projet, c'est lui qui décide de qui fait quoi ;
+	\item Philippe \bsc{Henry} : graphiste et web designer, il est en charge de l'aspect visuel du site ;
+	\item Damien \bsc{Arnaud} : un autre développeur, il me présente les outils de \fidit{} et m'aide en cas de problème ;
+	\item Jean \bsc{Bernex} : client du site et informaticien en charge du réseau.
+\end{itemize}
+
+\subsection{Le site}
+A mon grand regret, ce projet n'a pas été géré par \fidit{} comme tout leurs autres projets. Habituellement, ceux-ci font l'objet d'un cahier des charges précis, une maquette du site est réalisé par le graphiste avant que le développement puisse être envisagé.
+
+Dans le cas de Tampon-FLASH, il s'agissait d'un site sans urgence ni échéance. Il était parfait pour me plonger au cœur de l'activité de \fidit. Mais n'étant pas géré de la même manière, je n'avais aucun cahier des charges. Grâce à une première réunion avec Damien et le client, j'ai quand même pu obtenir une vision approximative du site voulu.
+
+~
+
+Tampon-FLASH est un site de vente en ligne de tampon. Ceux-ci sont très paramétrables : texte, taille, police, etc. Le site doit intégrer un système de prévisualisation des réglages du tampon. Le payement des commandes se fait par le biais d'un site externe spécialisé dans les ventes en ligne : \emph{PayPal}.
+
+Par chance, Damien avait déjà rapidement fait un petit module de prévisualisation, afin que je puisse voir ce qui était attendu.
+
+\section{Développement}
+\subsection{Le module de prévisualisation}
+La première chose sur laquelle j'ai travaillé, c'est le module de prévisualisation. Avec l'aide de Damien et de son exemple, j'ai pu commencer à construire quelque chose de basique.
+
+~
+
+Tout d'abord, j'ai \og dessiné \fg{} une interface graphique pour pouvoir saisir le texte et ses divers paramètres (police, alignement, taille, etc.). Il s'agit de l'aspect purement fonctionnel, la graphiste viendrait s'occuper du visuel en temps voulu.
+
+Ensuite, j'ai commencé le côté fonctionnel de la page. L'exemple de l'autre développeur mélangeait deux technologie pour avoir l'ensemble du code sur la même page. N'étant pas familier de l'une d'entre-elle, j'ai préféré dans un premier temps découper mon code sur plusieurs page. Une fois mes premières prévisualisation réussie, j'ai commencé à regrouper mes pages en une seule en me familiarisant avec le javascript.
+
+~
+
+De plus, en même temps que j'écrivais le code PHP du module, j'ai dû m'habituer à une technique que je connaissant de nom sans jamais l'avoir utilisé : un moteur de template. Il s'agit d'un mécanisme (ici en PHP) permettant de séparer le visuel du fonctionnel par le biais de variables.
+
+Heureusement, c'est Damien qui a écrit ce moteur, j'avais donc toute l'aide et les conseils possible à portée de main.
+
+\subsection{La base de données}
+Une fois mon module de prévisualisation fonctionnel, j'ai commencé à m'attaquer à la base de donnée. J'ai créé un première table qui stocke tous les tampons utilisables sur le site : nom, dimensions, etc.
+
+~
+
+En parallèle, j'ai adapté mon premier module pour qu'il dépende d'un tampon : le nombre de ligne de texte possible est directement proportionnel à la taille du tampon.
+
+\subsection{L'administration}
+Ensuite, j'ai du mettre en place un module d'administration. Il s'agit d'un ensemble de page à accès restreint pas un mot de passe qui permette de régler le comportement du site. Par exemple, nous avons une liste des tampons permettant de modifier leurs informations ou encore de dire lesquels sont disponible à la vente.
+
+~
+
+La plupart des sites de \fidit{} disposent d'un module équivalent. Je suis donc parti du code de l'un d'entre eux. J'ai voulu étudier le code en question, mais je me suis heurté à deux problèmes. Le premier, c'est que les fonctions et les pages portait les noms extrêmement explicites de \og a0001 \fg, \og a0002 \fg, etc. ce qui ne facilite absolument pas la compréhension.
+
+Le second problème, presque plus gênant encore est que je connaissais pas du tout l'architecture du module. J'étais donc dans l'incapacité complète de trouver l'ensemble des fichiers sources.
+
+~
+
+Damien ayant réalisé toutes les administrations, il m'a expliqué en personne comment celles-ci fonctionnait. Fort de ces nouvelles connaissance, j'ai pu lancer dans la réalisation du module proprement dit.
+
+~
+
+De ce côté là, pas de gros problèmes. Quelques doutes sur la manière de procéder dans certains cas, mais rien de très bloquant.
+
+\subsection{Le graphisme}
+Pendant que je travaillait sur ce module, Philippe est venu donner une nouvelle apparence au site.
+
+~
+
+Malgré le fait que je connaisse très peu le CSS et lui pas du tout le PHP, nous avons très peu de problèmes. De temps en temps, des éléments inutile subsistaient, mais ils ont fini par être éliminé.
+
+~
+
+Philippe a également mis en place plusieurs pages statiques (sans partie fonctionnelle), comme les conditions générales de vente ou le formulaire de contact.
+
+\subsection{L'externalisation des pages}
+La plupart des pages du site, excepté pour l'administration, ont des zones communes : le logo, le pied de page, etc.
+
+~
+
+C'est suite au module d'administration, lorsque plusieurs pages ont commencer à voir le jour que j'ai dû mettre en place \emph{l'externalisation des pages}. Derrière ce nom barbare se cache un autre mécanisme très lié au moteur de template. Il consiste à placer les éléments communs dans une page à part, puis d'intégrer celle-ci à la page affichée.
+
+~
+
+Grâce aux nombreux exemple des autres site et un fonctionnement simple, j'ai rapidement mis cela en place, sans erreurs.
+
+\subsection{Paiement en ligne}
+La partie la plus longue, et aussi la plus difficile à mettre en place. Ce module se découpe en trois phases :
+\begin{enumerate}
+	\item Une série de page qui récapitulent la commande et demande plusieurs informations nécessaires (adresse de livraison, etc.).
+	\item Le paiement proprement dit. Dans notre cas, c'est PayPal, nous ne gérons pas cet aspect.
+	\item Un page appelée automatiquement en cas de réussite du paiement. Elle se charge d'avertir l'utilisateur de la réussite de sa commande, d'envoyer celle-ci à la production, etc.
+\end{enumerate}
+
+~
+
+Même si PayPal est un site mondialement connu et très fiable, son système de test pour vérifier si votre site est correctement lié au système de paiement est très très loin d'être au point. D'une complexité inutile, il rend les choses encore plus difficiles aux développeurs avec une documentation peu explicite et aucun exemple concret.
+
+~
+
+Malgré les difficultés, j'ai finalement réussi à écrire un code fonctionnel (un énorme merci à Damien, sans qui tout cela n'aurait pas été possible).
+
+C'est la partie de ce projet qui m'a occupé le plus de temps : presque un mois complet sans interruptions.
+
+\subsection{Transmission des commandes}
+Une fois le paiement fait et validé, Tampon-FLASH doit transmettre la commande au client, que celui-ci puisse produire les tampons correspondants.
+
+La méthode sous-jacente est très simple : un mail. Celui-ci doit avoir pour pièce jointe un fichier PDF contenant les visualisation des tampons à imprimer.
+
+~
+
+Créer un mail et l'envoyer s'est révélé très peu difficile par le biais de fonctions claires. En ce qui concerne la création du PDF, je n'ai pas utilisé \pdfcreator{} comme pour \solulog, mais je suis passé par une API : \bsc{FPDF}.
+
+Facile d'utilisation, c'est un plaisir de l'utiliser et n'ai eu que peu de soucis.
+
+\subsection{Référencement et \emph{URL-Rewriting}}
+Avant de pouvoir terminer le site, il manques deux choses. La première, c'est une séries d'informations présente sur la plupart des pages qui simplifie le travail des moteur de recherche comme Google pour placer des liens vers votre site (on parle alors de \emph{référencement}).
+
+La seconde chose, c'est de réécrire artificiellement l'adresse d'une page. Cela permet d'avoir des adresses plus claires et plus simple à lire pour les utilisateurs.
+
+~
+
+Grâce à internet, aux exemples de \fidit{} et à l'aide de Damien, je n'ai eu aucun soucis à mettre en place ces deux systèmes.
+
+\section{Ce qu'il reste à faire}
+A ce jour, Tampon-FLASH est presque terminé. Il ne manque que quelques jours de développement pour pouvoir le mettre officiellement en ligne.
+
+~
+
+Malgré le fait qu'il soit encore en développement, le site est actuellement visible et utilisable à cette adresse : \url{http://tampd.fidit.com/}.

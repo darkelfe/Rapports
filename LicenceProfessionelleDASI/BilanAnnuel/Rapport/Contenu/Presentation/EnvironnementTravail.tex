@@ -21,25 +21,23 @@ Access possède lui-même une base de données interne, mais la taille de celle 
 Au final, Access ne sert donc que pour les parties interface et fonctionnelle du programme.
 
 \section{\fidit}
-Chez \fidit, le travail est réparti entre deux types de serveurs. Les premiers permettent le développement proprement dit des sites web. Ils sont configurés pour le développement web. Les seconds type de serveurs sont là pour les versions finales des sites web. C'est sur ceux-là que les les utilisateurs vont se connecter et utiliser les sites web.
+Chez \fidit, le travail est réparti entre deux types de serveurs. Les premiers permettent le développement proprement dit des sites web. Ils sont configurés pour le développement web. Les seconds sont là pour les versions finales des sites web. C'est sur ceux-là que les utilisateurs vont se connecter et utiliser les sites web.
 
-~
-
-Tous les serveurs de \fidit, quelque soit leur type, sont géré de manière identiques : avec \bsc{Linux}\footnote{Comme \bsc{Windows}, \bsc{Linux} est un système d'exploitation.}. Les employés travaillent directement sur le contenu des ces serveurs par le biais de connexions sécurisées dites SSH\footnote{SSH : Secure SHell, une interface d'échanges distant, disponible uniquement en mode texte.}.
+Tous les serveurs de \fidit, quel que soit leur type, sont gérés de manière identique : avec \bsc{Linux}\footnote{Comme \bsc{Windows}, \bsc{Linux} est un système d'exploitation.}. Les employés travaillent directement sur le contenu des ces serveurs par le biais de connexions sécurisées dites \og SSH \fg\footnote{SSH : Secure SHell, une interface d'échanges distants, disponible uniquement en mode texte.}.
 
 La base de donnée est la même pour tous les sites : MySQL.
 
 ~
 
-L'édition de fichiers sources constituant les sites web est faite par avec le logiciel VIM. En plus des connexions SSH, il est également possible d'importer directement des fichiers (comme les images) en utilisant une connexion FTP\footnote{FTP : File Transfert Protocol, une méthode permettant le transfert de fichiers entre deux entités distantes.}.
+L'édition des fichiers source constituant les sites web est faite avec le logiciel VIM\footnote{VIM : \emph{Vi IMproved}, une version évoluée du logiciel \emph{Vi}}. En plus des connexions SSH, il est également possible d'importer directement des fichiers (comme les images) en utilisant une connexion FTP\footnote{FTP : File Transfert Protocol, une méthode permettant le transfert de fichiers entre deux entités distantes.}.
 
 ~
 
-Pour finir, les développements de \fidit{} utilisent au total cinq langages de programmations, mais qui constituent \emph{ensemble} la base des sites web. En voici la liste avec une courte description :
+Pour finir, les développements de \fidit{} utilisent au total cinq langages de programmation, mais qui constituent \emph{ensemble} la base des sites web. En voici la liste avec une courte description :
 \begin{itemize}
 	\item Le HTML : permet de décrire le contenu de la page (le titre, les menus, etc.) ;
 	\item Le CSS : contient les éléments relatifs à l'aspect de la page (le menu est à gauche, les liens sont en rouge, etc.) ;
 	\item Le PHP : il s'agit de la partie \og réflexion \fg du site, celle qui interagit avec la base de donnée ;
-	\item Le SQL : permet les échanges avec la base de donnée, il est utilisé via le PHP.
+	\item Le SQL : permet les échanges avec la base de données, il est utilisé via le PHP.
 	\item Le javascript : également la partie réflexion, il joue un rôle au niveau du navigateur internet de l'utilisateur.
 \end{itemize}

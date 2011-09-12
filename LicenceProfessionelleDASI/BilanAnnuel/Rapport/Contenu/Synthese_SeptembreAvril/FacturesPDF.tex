@@ -1,10 +1,10 @@
 \chapter{Gestion des factures au format PDF}
 \section{Présentation}
-\integrale{} propose dans de nombreux cas la possibilité d'exporter des données sous la forme d'un tableau ou d'un document texte. Les deux suites bureautique les plus connues géré sont Microsoft \bsc{Office} et \bsc{OpenOffice.org}, selon les possibilités du client. Dans le cas où celui-ci dispose d'\bsc{OpenOffice}, \integrale{} permet également d'exporter diverses choses directement vers le format PDF\footnote{PDF : Portable Document Format, il s'agit d'un format informatique de document, extrêmement connu et utilisé de partout.}.
+\integrale{} propose dans de nombreux cas la possibilité d'exporter des données sous forme d'un tableau ou d'un document texte. Les deux suites bureautique les plus connues, qui sont interfacées avec \integrale, sont Microsoft \bsc{Office} et \bsc{OpenOffice.org}. Selon les possibilités du client, l'une ou l'autre est employée. Dans le cas où celui-ci dispose d'\bsc{OpenOffice}, \integrale{} permet également d'exporter diverses objets (factures, etc.) directement vers le format PDF\footnote{PDF : Portable Document Format, il s'agit d'un format informatique de documents, extrêmement connu et utilisable de partout.}.
 
 ~
 
-Parmi les grandes demandes des clients, il y en a une qui apparaissait souvent : la possibilité d'exporter les factures que génère \integrale{} au format PDF. La problématique est que pour générer ses factures, \solulog{} utilise un élément propre à Microsoft \bsc{Access} : les \og états \fg. Compte tenu du fait que c'est \bsc{Access} qui affiche ces factures, il est impossible de les exporter vers \bsc{OpenOffice} pour les transformer en PDF. De plus, il pourrait être très avantageux de proposer l'export PDF à tous les clients, y compris ceux ne disposant pas d'\bsc{OpenOffice}.
+Parmi les grandes demandes des clients, il y en a une qui apparaissait souvent : la possibilité d'exporter les factures générées par \integrale{} au format PDF. La problématique est que pour générer ses factures, \solulog{} utilise un élément propre à Microsoft \bsc{Access} : les \og états \fg. Compte tenu du fait que c'est \bsc{Access} qui affiche ces factures, il est impossible de les exporter vers \bsc{OpenOffice} pour les transformer en PDF. De plus, il pourrait être très avantageux de proposer l'export PDF à tous les clients, y compris ceux ne disposant pas d'\bsc{OpenOffice}.
 
 ~
 
@@ -15,44 +15,44 @@ En informatique, il n'existe que trois moyens \og simple \fg{} d'exporter quelqu
 
 ~
 
-La première consiste à écrire soit-même le fichier PDF à partir des éléments voulu. Mais cela pose un grand problème : il faut connaître le format du fichier dans ses moindres détails. Si nous tenons compte de la complexité d'un format comme le PDF, il presque impossible de procéder comme cela. Et aucune entreprise n'est prête à assumer le coût d'un tel développement, surtout s'il existe déjà des outils permettant de le faire.
+La première consiste à écrire soi-même le fichier PDF à partir des éléments souhaités. Mais cela pose un problème important : il faut connaître le format du fichier dans ses moindres détails. Si nous tenons compte de la complexité d'un format comme le PDF, il presque impossible de procéder comme cela. De plus, aucune entreprise n'est prête à assumer le coût d'un tel développement, surtout s'il existe déjà des outils permettant de le faire.
 
 ~
 
-La seconde solution consiste à utiliser une bibliothèque de fonctions\footnote{Une bibliothèque de fonctions est un recueil de fonctions portant sur un même thème ou ayant le même but. Exemple : générer un PDF.} qui permet la création de PDF. Ce choix offre des avantages : pas besoin de connaître les détails du format, des fonctions généralement simple à utiliser, etc. Mais un des points négatif, c'est que nous somme dépendant du langage utilisé : celui-ci ne dispose pas forcément de telles bibliothèques. C'est exactement le cas du \vb, notamment pour \bsc{Access} : il n'existe aucune bibliothèque permettant la création des fichiers PDF.
+La seconde solution consiste à utiliser une bibliothèque de fonctions\footnote{Une bibliothèque de fonctions est un recueil de fonctions portant sur un même thème ou ayant le même but. Exemple : générer un PDF.} permettant la création de PDF. Ce choix offre des avantages : pas besoin de connaître les détails du format, des fonctions qui sont généralement simples à utiliser, etc. Mais un des points négatif, c'est que nous sommes dépendants du langage utilisé : celui-ci ne dispose pas forcément de telles bibliothèques. C'est exactement le cas du \vb, notamment pour \bsc{Access} : il n'existe aucune bibliothèque permettant la création des fichiers PDF.
 
 ~
 
-La troisième et dernière solution consiste à employer un programme externe. Nous lui envoyons des données (par exemple une image), et le programme se charge de créer un PDF associé. Un des grands avantages, c'est la possibilité de se séparer du langage. Mais il y a aussi des défauts : tous les programmes externe ne sont pas forcément simple à utiliser, il faut que l'application en question soit disponible sur toutes les machines utilisant votre programme, etc.
+La troisième et dernière solution consiste à employer un programme externe. Nous lui envoyons des données (par exemple une image), et le programme se charge de créer un PDF associé. Un des grands avantage, c'est la possibilité de se séparer du langage. Mais il y a aussi des défauts : tous les programmes externes ne sont pas forcément simples à utiliser, il faut que l'application en question soit disponible sur toutes les machines utilisant votre programme, etc.
 
 ~
 
-Au final, j'ai opté pour la troisième solution. Mon choix s'est fixé sur un programme très connu dans le milieu de l'informatique : \pdfcreator. Il dispose de nombreux avantages : il est très léger et simple, tant pour l'installer que pour l'utiliser et dispose également d'une API\footnote{API : Application Programming Interface, c'est une \emph{bibliothèque de fonctions} permettant de manipuler un programme.} simple et disponible dans de nombreux langages, y compris le \vb.
+Au final, j'ai opté pour la troisième solution. Mon choix s'est fixé sur un programme très connu dans le milieu de l'informatique : \pdfcreator. Il dispose de nombreux avantages : il est très léger et simple, tant pour l'installer que pour l'utiliser. Il dispose également d'une API\footnote{API : Application Programming Interface, c'est une \emph{bibliothèque de fonctions} permettant de manipuler un programme.} simple et disponible dans de nombreux langages, y compris le \vb.
 
-\pdfcreator{} est une imprimante virtuelle, c'est à dire que c'est programme qui se comporte exactement comme un imprimante : on peut lui envoyer n'importe quelle information comme à une imprimante, et au final obtenir, au lieu d'une feuille avec le résultat, un fichier PDF.
+\pdfcreator{} est une imprimante virtuelle, c'est-à-dire que ce programme se comporte exactement comme un imprimante : on peut lui envoyer n'importe quelle information comme à une imprimante, et au final obtenir, au lieu d'une feuille papier, un fichier PDF.
 
 \section{Impression au format PDF}
 Après avoir communiqué le résultat de cette étude à mon supérieur, il a été décidé que je devais le mettre en place pour les factures.
 
 ~
 
-J'ai donc commencé par chercher sur internet des exemples d'utilisation de l'API de \pdfcreator. Heureusement, je n'ai pas eu à chercher longtemps et j'ai rapidement trouvé un exemple clair, simple et fonctionnel. Ensuite, j'ai essayé de trouver la documentation de \pdfcreator, mais ses créateurs ont visiblement jugé que les noms des fonctions et de leurs paramètres sont suffisamment explicites pour se passer d'une documentation.
+J'ai donc commencé par chercher sur internet des exemples d'utilisation de l'API de \pdfcreator. Heureusement, je n'ai pas eu à chercher longtemps et j'ai rapidement trouvé un exemple clair, simple et fonctionnel. Ensuite, j'ai essayé de trouver la documentation de \pdfcreator, mais impossible d'en trouver une. Je me suis donc appuyé sur le nom des fonctions et de leurs paramètres.
 
 ~
 
-Avec plusieurs exemples, je me suis lancé dans une tentative d'impression au format PDF. Après plusieurs essais, j'ai finalement réussi à imprimer une des factures en PDF.
+Avec plusieurs exemples, je me suis lancé dans une tentative d'impression au format PDF. Après plusieurs essais, j'ai réussi à imprimer une des factures en PDF.
 
-Afin de simplifier la gestion des PDF, j'ai décider de déplacer l'impression des PDF dans un module indépendant. Il suffit d'y appeler une seule fonction en indiquant la facture voulue et tout se fait automatiquement.
+Afin de simplifier la gestion des PDF, j'ai décidé de déplacer l'impression des PDF dans un module indépendant. Il suffit d'y appeler une seule fonction en indiquant la facture voulue et tout se fait automatiquement.
 
 \section{Chemin paramétrable}
 \label{pdf_param}
-Après quelques tests, mon module à été déployé chez nos clients. Face au succès de cette fonctionnalité et à diverses suggestions des clients, nous avons décidé que chaque facture serait automatiquement exporté de manière invisible sur les serveurs de nos clients (système d'archivage des factures).
+Après quelques tests, mon module a été déployé chez nos clients. Face au succès de cette fonctionnalité et suite à diverses suggestions des clients, nous avons décidé que chaque facture serait automatiquement exportée de manière invisible sur les serveurs de nos clients (système d'archivage des factures).
 
-Mais nos clients ne classent pas tous leurs documents de la même manière. Certains utilisent uniquement la date alors que d'autres préfèrent ranger selon le nom de leurs clients. Afin d'offrir un système commun et souple, \solulog{} m'a donné pour tâche de créer un chemin pour les PDF qui peut dépendre de plusieurs variables.
+Mais nos clients ne classent pas tous leurs documents de la même manière. Certains utilisent uniquement la date alors que d'autres préfèrent les ranger selon le nom de leurs clients. Afin d'offrir un système commun et souple, \solulog{} m'a donné pour tâche de créer un chemin pour les PDF pouvant dépendre de plusieurs variables.
 
 ~
 
-Le développement c'est fait en deux temps. En premier, développer une fenêtre qui permette de régler ces chemins. Voici celui que j'ai réalisé pour les factures PDF :
+Le développement s'est fait en deux temps. Premièrement, développer une fenêtre qui permette de régler ces chemins. Voici celle que j'ai réalisé pour les factures PDF :
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[scale=.78]{Contenu/Synthese_SeptembreAvril/Images/Chemin_PDF.png}
@@ -65,8 +65,8 @@ Le développement c'est fait en deux temps. En premier, développer une fenêtre
 Ensuite, j'ai dû mettre en place ce système dans le module d'impression PDF. Des chemins paramétrables existaient déjà pour d'autres parties de \integrale, j'ai donc pu les recopier en modifiant légèrement le code pour l'adapter à mes besoins.
 
 \section{Génération automatique de facture}
-Malheureusement, le système ci dessus ne s'applique qu'au factures que l'utilisateur exporte, quel qu'en soit la raison. Il fallait un programme supplémentaire qui se charge automatiquement de générer les PDF des factures qui n'en n'ont pas.
+Malheureusement, le système ci-dessus ne s'applique qu'aux factures que l'utilisateur exporte, quelle qu'en soit la raison. Il fallait un programme supplémentaire qui se charge automatiquement de générer les PDF des factures qui n'en n'ont pas.
 
 ~
 
-Le développement final à été très simple car l'aspect automatique du lancement du programme est géré par le serveur du client, qui peut également choisir l'heure de l'exécution de cette tâche (voir de la désactiver). Il ne restait donc à faire qu'un simple programme qui parcours la liste des factures et regarde s'il existe un PDF qui lui est associé. Et si ce n'est pas le cas, nous en générons un.
+Le développement final a été très simple car l'aspect automatique du lancement du programme est géré par le serveur du client, qui peut également choisir l'heure de l'exécution de cette tâche (voir de la désactiver). Il ne restait donc à faire qu'un programme pour parcourir la liste des factures et regarder s'il existe un PDF qui lui est associé. Si ce n'est pas le cas, nous en générons un.

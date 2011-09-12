@@ -6,67 +6,67 @@ Malgré toutes ses fonctionnalités, \integrale{} ne dispose pas de gestion comm
 
 ~
 
-Une petite entreprise qui gère seulement un entrepôt n'a certainement pas besoins de l'ensemble des fonctionnalités proposées par \bsc{Ciel} ou ses concurrents. Le prix allant de pair avec la complexité du logiciel et sa capacité à couvrir un maximum de chose, ils sont généralement hors de prix pour les petites sociétés. Elles doivent alors faire leur gestion elle-même avec tous les problèmes et risques que cela occasionne.
+Une petite entreprise qui gère seulement un entrepôt n'a certainement pas besoin de l'ensemble des fonctionnalités proposées par \bsc{Ciel} ou ses concurrents. Le prix allant de pair avec la complexité du logiciel et sa capacité à couvrir un maximum de services, ils sont généralement hors de prix pour les petites sociétés. Elles doivent alors faire leur gestion elles-mêmes avec tous les problèmes et risques que cela occasionne.
 
 ~
 
-C'est pour offrir une alternative à ce dilemme que j'ai eu ce troisième projet. Le but était d'offrir à ceux qui le veulent, un module supplémentaire permettant de faire une gestion commerciale très simplifié des entrepôts. Un des avantages serait l'intégration de ce module dans les progiciels de \solulog, qui aurait alors des liens directs avec le module de gestion d'entrepôts.
+C'est pour offrir une alternative à ce dilemme que j'ai travaillé sur ce troisième projet. Le but était d'offrir à ceux qui le veulent un module supplémentaire permettant de faire une gestion commerciale très simplifiée des entrepôts. Un des avantages serait l'intégration de ce module dans les progiciels de \solulog, qui aurait alors des liens directs avec le module de gestion d'entrepôts.
 
 ~
 
-Ce projet ne s'est pas fait d'un seul bloc. Il était et est toujours considéré comme mineur, les autres tâches ayant toujours la priorité. J'ai donc commencé le projet au milieu du mois de février 2011 jusqu'à la fin du mois d'avril 2011. Mais il a été régulièrement interrompu par d'autres tâches mineures.
+Ce projet ne s'est pas fait d'un seul bloc. Il était et est toujours considéré comme mineur, les autres tâches ayant toujours la priorité. J'ai donc commencé le projet au milieu du mois de février 2011, jusqu'à la fin du mois d'avril 2011. Mais il a été régulièrement interrompu par d'autres tâches mineures.
 
 \section{Étude avec UML}
-Dans le cas de ce projet, il s'agissait de commencer au tout début. Ma première tâche à donc été d'étudier le projet. Grâce aux cours reçu lors de cette année, mon choix s'est rapidement porté sur l'UML\footnote{UML : \emph{Unified Modeling Language}, un \og langage \fg{} permettant de modéliser les différents aspects d'une tâche, d'un objet. Il est très utilisé en informatique pour modéliser les programmes avant leur développement proprement dit.}.
+Dans le cas de ce projet, il s'agissait de commencer au tout début. Ma première tâche a donc été l'étude du projet. Grâce aux cours reçus durant cette année, mon choix s'est rapidement porté sur l'UML\footnote{UML : \emph{Unified Modeling Language}, un \og langage \fg{} permettant de modéliser les différents aspects d'une tâche, d'un objet. Il est très utilisé en informatique pour modéliser les programmes avant leur développement proprement dit.}.
 
 ~
 
-Ce module ne devant être qu'une version très simplifié d'une \og réelle \fg{} gestion commerciale, je me suis restreint à la gestions des clients / fournisseurs et les deux grands échanges que l'on est amené à partager avec eux : les commandes et les factures.
+Ce module ne devant être qu'une version très simplifiée d'une \og réelle \fg{} gestion commerciale, je me suis restreint à la gestions des clients / fournisseurs et aux deux grands principaux échanges que l'on est amenés à partager avec eux : les commandes et les factures.
 
 ~
 
-Lors de cette étude, j'ai rapidement remarqué l'étrange symétrie qui existe entre les clients et les fournisseurs d'une entreprise. Même s'il ne s'agit pas de la même chose, y compris d'un point de vue informatique, les choses fondamentales à retenir sont presque les mêmes. Si leur sens est opposé, les échanges sont néanmoins identiques.
+Lors de cette étude, j'ai rapidement remarqué l'étrange symétrie qui existe entre les clients et les fournisseurs d'une entreprise. Même s'il ne s'agit pas de la même chose, y compris d'un point de vue informatique, les informations fondamentales à retenir sont presque les mêmes. Si leur sens est opposé, les échanges sont néanmoins identiques.
 
-Afin de simplifier mon étude, j'ai décidé de me concentrer en premier sur une seule moitié de celle-ci : la partie en rapport avec les clients. Ensuite, il était prévu de dupliquer cette partie en y apportant quelques modifications qui  donnerons le reste de l'étude.
+Afin de simplifier mon étude, j'ai décidé de me concentrer en premier sur une seule moitié de celle-ci : la partie en rapport avec les clients. Ensuite, il était prévu de dupliquer cette partie en y apportant quelques modifications qui permettrons de déduire le reste de l'étude.
 
 \subsubsection{Réutilisation d'éléments existants}
-Les clients et les fournisseurs de ce module ne sont pas les seules \og personnes \fg{} à être décrite dans \integrale. De même, les articles auxquels font références les commandes et les factures existent déjà dans le gestion d'entrepôts.
+Les clients et les fournisseurs de ce module ne sont pas les seules \og entités \fg{} à être décrite dans \integrale. De même, les articles auxquels font référence les commandes et les factures existent déjà dans le gestion d'entrepôts.
 
 ~
 
-Afin de limiter la duplication inutile des données, j'ai réutilisé des éléments existant de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû prévoir une légèrement intervention sur la structure de ces tables\footnote{Les base de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données.
+Afin de limiter la duplication inutile de données, j'ai réutilisé des éléments existant déjà de la base de données. Dans certains cas, comme pour les articles, j'ai néanmoins dû prévoir une légèrement intervention sur la structure des tables\footnote{Les bases de données regroupent leurs données dans des \emph{tables}.}, généralement pour y adjoindre de nouvelles données.
 
 \section{Réalisation du module}
-J'ai commencé par agrandir la base de données pour y ajouter les tables nécessaires. La structure de celle-ci ayant été en grande partie faite lors de l'étude, ça ne m'a pas pris longtemps.
+J'ai commencé par agrandir la base de données pour y ajouter les tables nécessaires. Sa structure ayant été en grande partie construite lors de l'étude, cela ne m'a pas pris longtemps.
 
 ~
 
-Pour débuter le module lui-même, j'ai créé un nouveau formulaire présentant les données de la table au centre de celui-ci : les commandes. Ce formulaire est un petit peu particulier : il est constitué de deux parties. La première est réellement relative aux données de la commande comme la date, le client associé, etc. La seconde partie, quand à elle, est la liste des articles présent dans la commande. Cette partie est écrite dans un second formulaire qui est ensuite intégré au premier.
+Pour débuter le module lui-même, j'ai créé un nouveau formulaire présentant les données de la table qui est au centre de celui-ci : les commandes. Ce formulaire est un petit peu particulier : il est constitué de deux parties. La première est réellement relative aux données de la commande, telles que la date, le client associé, etc. La seconde partie, quant à elle, est la liste des articles présents dans la commande. Cette partie est écrite dans un second formulaire qui est ensuite intégré au premier.
 
 ~
 
 Comme pour tous les formulaires, leur réalisation s'est déroulée en trois temps :
 \begin{enumerate}
-	\item Création de l'interface visuelle, c'est à dire tout ce qui visible à l'utilisateur.
-	\item Création de l'aspect fonctionnel : comment le formulaire réagit aux actions d'un utilisateur (clic sur un bouton, etc.).
+	\item Création de l'interface visuelle, c'est à dire tout ce qui visible par l'utilisateur.
+	\item Création de l'aspect fonctionnel : comment le formulaire réagit-il aux actions d'un utilisateur (clic sur un bouton, etc.)
 	\item Test du formulaire.
 \end{enumerate}
 
 ~
 
-Suite à cela, j'ai crée deux autre formulaires. Le premier liste les commandes existantes, soit dans leur totalité, soit selon un filtre introduit par le second formulaire. Quand au deuxième, il présente les différents champs qui peuvent être filtré pour trouver une ou plusieurs commandes en particulier.
+Suite à cela, j'ai créé deux autres formulaires. Le premier liste les commandes existantes, soit dans leur totalité, soit selon un filtre introduit par le second formulaire. Ce dernier présente les différents champs qui peuvent être filtrés pour trouver une ou plusieurs commandes en particulier.
 
-Cette paire est présente à de nombreuse reprise dans \integrale, je n'ai donc pas mis longtemps à les faire.
+Cette paire est présente à de nombreuses reprises dans \integrale, je n'ai donc pas mis longtemps à les faire.
 
 ~
 
 Après les commandes, je suis passé aux factures. J'ai employé exactement le même principe :
 \begin{itemize}
 	\item un formulaire détaillant le contenu d'une facture ;
-	\item une paire de formulaire pour la recherche.
+	\item une paire de formulaires pour la recherche.
 \end{itemize}
 
-Et pour finir, je suis passés aux tests avec de fausses données : création, consultation / modification et suppression de facture.
+Pour finir, je effectués des tests avec de fausses données : création, consultation / modification et suppression de factures.
 
 ~
 

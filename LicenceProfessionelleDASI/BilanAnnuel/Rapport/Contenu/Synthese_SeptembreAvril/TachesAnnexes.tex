@@ -1,59 +1,59 @@
 \chapter{Tâches annexes}
-Avant d'aborder la seconde partie de mon année, je vais parler brièvement des courts projets que j'ai également mené lors de cette première partie.
+Avant d'aborder la seconde partie de mon année, je vais parler brièvement des courts projets que j'ai également mené en même temps que les projets détaillés précédemment.
 
 \section{Ajustement automatique de la taille}
 \subsection{Présentation}
-Un des désavantages de réaliser nos interfaces avec \bsc{Access} 2003, c'est que celui-ci ne sait pas s'adapter à la taille de la fenêtre. C'est à dire que quelque soit la taille de votre écran, l'ensemble à toujours la même taille.
+Un des désavantages de réaliser nos interfaces avec \bsc{Access} 2003, c'est que celui-ci ne sait pas s'adapter automatiquement à la taille de la fenêtre. C'est-à-dire que quelle que soit la taille de votre écran, l'ensemble a toujours la même taille.
 
-De nos jours, les écrans sont de plus en plus grand. Mais il reste également des écrans assez petit. Pour que \integrale{} puisse s'adapter à tout les écrans, ses interfaces ont été réalisée pour de petits écran. Le problème vient lorsqu'on le lance avec un grand écran : la fenêtre n'utilise qu'un fragment de l'écran. De plus, les objets dessus sont assez petits, ce qui les rend difficile d'accès.
+De nos jours, les écrans sont de plus en plus grand. Mais il existe encore des écrans plus petits. Pour que \integrale{} puisse s'adapter à tous les écrans, ses formulaires ont été réalisées pour de petits écrans. Le problème survient lorsqu'on lance le programme avec un grand écran : la fenêtre affichée n'occupe qu'un fragment de l'écran. De plus, les objets présents dedans sont assez petits, ce qui les rends difficile d'accès.
 
 ~
 
 Afin de résoudre ce problème, \solulog{} m'a chargé de créer un système capable de redimensionner automatiquement le contenu d'un formulaire.
 
 \subsection{Réalisation}
-Avant de même réaliser l'agrandissement des formulaires, j'ai cherché un moyen d'obtenir le facteur d'agrandissement qu'il me fallait.
+Avant même de réaliser l'agrandissement des formulaires, j'ai cherché un moyen d'obtenir le facteur d'agrandissement dont j'avais besoin.
 
 ~
 
-La première chose à laquelle j'ai pensé, c'est récupérer les dimensions de l'écran et de calculer le facteur par rapport à la taille initiale des fenêtres. Le problème, c'est le \vb{} est trop ancien pour disposer de telles fonctions. J'ai continué à cherché et me suis finalement rendu à l'évidence : il n'existait qu'un seul moyen pour m'en sortir. Heureusement, il s'agit d'une solution très simple : l'utilisateur renseigne un facteur \og à la main \fg.
+La première chose à laquelle j'ai pensé, c'est récupérer les dimensions de l'écran actuel et de calculer le facteur par rapport à la taille initiale des fenêtres. Le problème, c'est que le \vb{} est trop ancien pour disposer de fonctions permettant de connaître les caractéristiques de l'écran connecté. J'ai continué à chercher et me suis finalement rendu à l'évidence : il n'existait qu'un seul moyen pour m'en sortir. Heureusement, il s'agit d'une solution très simple : l'utilisateur renseigne le facteur \og à la main \fg.
 
-Par chance, la plupart des d'utilisateur sont sur un poste fixe, toujours avec le même écran. Avec l'aide de mon supérieur, j'ai ajouté un réglage à chaque utilisateur permettant de régler se facteur.
-
-~
-
-Ensuite, il fallait passer à l'agrandissement du formulaire lui-même. De ce côté là, le \vb{} est bien fait : il dispose de nombreuses fonctions permettant de parcourir l'ensemble des éléments d'un formulaire.
-
-Le principe global est simple : parcourir chaque élément, et pour chacun multiplier par le facteur : les dimensions, mais aussi la position, pour éviter que tout les éléments se retrouve tous les uns sur les autres. Ensuite, si l'élément en question dispose d'un texte (de base ou saisi par un utilisateur), je multiplie également la taille de police.
+Par chance, la plupart des d'utilisateurs travaillent sur un poste fixe, toujours avec le même écran. Avec l'aide de mon supérieur, j'ai ajouté un réglage permettant à chaque utilisateur de régler ce facteur.
 
 ~
 
-Globalement, tout c'est bien passé à l'exception des onglets. Ceux-ci ont un fonctionnement un peu différent et j'ai mis un long moment à identifier la source du problème.
+Ensuite, il fallait passer au redimensionnement du formulaire lui-même. De ce côté-là, le \vb{} est bien fait : il dispose de nombreuses fonctions permettant de parcourir l'ensemble des éléments d'un formulaire.
+
+Le principe est simple : parcourir chaque éléments du formulaire, et pour chacun, multiplier ses dimensions par le facteur. Il faut également appliquer le facteur à la position de l'objet : évite que tous les éléments se retrouvent tous les uns sur les autres. Ensuite, si l'élément en question dispose d'un texte (de base ou saisi par un utilisateur), je multiplie la taille de sa police de caractère.
+
+~
+
+Globalement, tout s'est bien passé à l'exception des onglets. Ceux-ci ont un fonctionnement un peu différent et j'ai mis un long moment à identifier et corriger le problème.
 
 \section{Système de traduction des fenêtres}
 \subsection{Présentation}
-Pour le moment, \integrale{} est un produit entièrement français, il est donc écrit en français. Mais \solulog{} souhaiterais le vendre à l'étranger, ou le mettre en place dans des filières étrangères de nos clients. Le problème qui apparaît immédiatement est celui de la langue. Comme pour la majorité des programmes, il est impossible d'écrire une version du programme par langue. Il faut donc un système multi-langue, dont la mise en place m'a été confié.
+Pour le moment, \integrale{} est un produit entièrement français, il est donc écrit en français. Mais \solulog{} souhaiterai le vendre à l'étranger, ou le mettre en place dans des filières étrangères de nos clients. Le problème qui apparaît immédiatement est celui de la langue. Comme pour la majorité des programmes, il est impossible d'écrire une version du programme par langue. Il fallait donc un système multi-langue, dont la mise en place m'a été confié.
 
 ~
 
-Mon supérieur avait déjà une ébauche d'idée sur le sujet : les traductions des textes serait stockée dans un simple 	fichier au format INI\footnote{Il s'agit d'un format de fichier simple et connu, qui associe une valeur à une clé.}.
+Mon supérieur avait déjà une ébauche d'idée sur le sujet : les traductions des textes seraient stockées dans un simple fichier au format INI\footnote{Il s'agit d'un format de fichier simple et connu, qui associe une valeur à une clé.}.
 
 \subsection{Réalisation}
-Le chemin pour faire cela était donc tout tracé. Me basant sur mon programme d'ajustement automatique des tailles, je parcours l'ensemble des éléments du formulaire et s'il dispose d'un texte, je recherche celui-ci dans le fichier INI associé à la langue. Si je le trouve, je récupère le texte correspondant pour le mettre à la place de l'existant.
+Le chemin pour faire cela était donc tout tracé. Me basant sur mon programme d'ajustement automatique des tailles, je parcours finalement l'ensemble des éléments du formulaire et s'il dispose d'un texte, je recherche celui-ci dans le fichier INI associé à la langue. Si je lui trouve une valeur associée, je la récupère pour la mettre à la place du texte existant.
 
 ~
 
-La seule difficulté, en théorie, était de lire les fichiers INI. Mais le \vb{} dispose de nombreuses fonctions permettant d'accéder à un fichier de ce genre. Grâce à un autre exemple présent dans \integrale, j'ai facilement pu comprendre comment lire un fichier INI et le mettre en place moi-même.
+La seule difficulté, en théorie, était de lire les fichiers INI. Mais le \vb{} dispose de nombreuses fonctions permettant d'accéder à un fichier de ce genre. Grâce à un autre exemple présent dans \integrale, j'ai facilement pu comprendre comment lire un fichier INI et mettre moi-même en pratique ces fonctions.
 
 \section{Écriture linéaire d'un nombre}
 \subsection{Présentation}
-Ce mini-projet s'est déroulé pendant que je travaillait sur le module de gestion commercial détaillé au chapitre \ref{gestion_commerciale}.
+Ce mini-projet c'est déroulé pendant que je travaillais sur le module de gestion commerciale détaillé au chapitre \ref{gestion_commerciale}.
 
 ~
 
-Mon maître d'apprentissage en entreprise était à la recherche d'une fonction qui lui permettait d'obtenir l'écriture linéaire d'un nombre. Par exemple, transformer \og 142 \fg{} en \og cent quarante-deux \fg.
+Mon maître d'apprentissage en entreprise était à la recherche d'une fonction qui lui permette d'obtenir l'écriture linéaire d'un nombre. Par exemple, transformer \og 142 \fg{} en \og cent quarante-deux \fg.
 
-Je me suis donc lancé dans la recherche d'une fonction de ce genre. Il s'est avéré qu'il n'existe pas, en \vb, de fonction permettant cela. Il m'a finalement été demandé si je pouvais l'écrire.
+Je me suis donc lancé dans l'étude d'une fonction de ce genre. Il s'est avéré qu'il n'existe pas, en \vb, de fonction permettant cela. J'ai donc décidé  de l'écrire moi-même.
 
 \subsection{Réalisation}
-La première chose que j'ai fait, ça été de chercher un site récapitulant l'ensemble des règles de français conditionnant l'écriture d'un nombre (qui prend des \og s \fg{} et quand, etc.). Après les avoir mémorisé, j'ai écris une première fonction qui découpe le nombre obtenu par groupe de trois. Ensuite, je converti chacun de ces groupes en son expression linéaire. Pour finir, il ne reste plus qu'à regrouper les expressions en plaçant les séparateur correspondant (milliers, millions, etc.).
+Dans un premier temps, j'ai cherché un site récapitulant l'ensemble des règles de français conditionnant l'écriture linéaire d'un nombre (qui prend des \og s \fg{} et quand, etc.). Grâce à cela, j'ai écrit une première fonction qui découpe le nombre obtenu par groupes de trois chiffres. Ensuite, je convertis chacun de ces groupes en son expression linéaire. Pour terminer le travail, il ne reste plus qu'à regrouper les expressions avec les séparateurs correspondant (milliers, millions, etc.).
